@@ -2,13 +2,19 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 #define TAM_EXP 100
 
 struct nodo {
     char ope;
-    float valor;
+    int valor;
     struct nodo *fe;
     struct nodo *fd;
+};
+
+struct arvore {
+    struct nodo *raiz;
+    short int tam;
 };
 
 struct nodo *cria_nodo (){
@@ -23,36 +29,43 @@ struct nodo *cria_nodo (){
     return new_nodo;
 }
 
-struct nodo *cria_arvore (char *token){
-    struct nodo *arvore = cria_nodo ();
-    char *ope = "/ * - +";
-    char *tk_ope = strtok (ope, " ");
+struct arvore *cria_arvore (){
+    struct arvore *arvore = malloc (sizeof (struct arvore));
+    
+    if (!arvore) return NULL;
 
-    if (!token || !arvore)
-        return NULL;
+    arvore->raiz = NULL;
+    arvore->tam = 0;
 
-    // verificar se equação é válida
-    int valido = 0;
-    while (tk_ope != NULL){
-        if (strcmp (token, tk_ope) == 1)
-            valido = 1;
+    return arvore;
+}
 
-        tk_ope = strtok(NULL, " ");
+void insere_nodo (struct arvore *tree, char *token){
+    if (!tree || token) return NULL;
+
+    struct nodo *novo = cria_nodo ();
+
+    char *operacoes = "/ * - +";
+    char *tk_op = strtok (operacoes, " ");
+    short int inserido = 0;
+
+    while (tk_op != NULL){
+        if (strcmp (tk_op, token) == 1){
+            novo->ope = token;
+            inserido = 1;
+            break;
+        }
+
+        tk_op = strtok (NULL, " ");
     }
 
-    if (!valido){
-        return NULL;
-    }
-
-    arvore->ope = *token;
-    token = strtok(NULL, " ");
-
+    if (!inserido) novo->valor = token - '0';
+    
 
     
 
 
-
-    return NULL;
+    
 }
 
 void imprime_preordem (){
@@ -60,7 +73,7 @@ void imprime_preordem (){
 }
 
 int main (){
-    char expressao[TAM_EXP];
+    char expressao[TAM_EXP + 1];
     const char *delim = " ";
     char *token;
 
