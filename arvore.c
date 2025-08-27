@@ -8,6 +8,7 @@
 struct nodo {
     char ope;
     int valor;
+    struct nodo *pai;
     struct nodo *fe;
     struct nodo *fd;
 };
@@ -20,28 +21,18 @@ struct arvore {
 struct nodo *cria_nodo (){
     struct nodo *new_nodo = malloc (sizeof (struct nodo));
 
-    if (!new_nodo)
-        return NULL;
+    if (!new_nodo) return NULL;
 
+    new_nodo->pai = NULL;
     new_nodo->fe = NULL;
     new_nodo->fd = NULL;
 
     return new_nodo;
 }
 
-struct arvore *cria_arvore (){
-    struct arvore *arvore = malloc (sizeof (struct arvore));
-    
-    if (!arvore) return NULL;
 
-    arvore->raiz = NULL;
-    arvore->tam = 0;
-
-    return arvore;
-}
-
-void insere_nodo (struct arvore *tree, char *token){
-    if (!tree || token) return NULL;
+void insere_nodo (char *token){
+    if (!token) return NULL;
 
     struct nodo *novo = cria_nodo ();
 
