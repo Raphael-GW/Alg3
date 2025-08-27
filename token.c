@@ -2,24 +2,8 @@
 #include <stdio.h>
 
 int main () {
-   char str[80] = "This is - www.tutorialspoint.com - website";
-   const char s[2] = "-";
-   char *token;
-   
-   /* get the first token */
-   token = strtok(str, s);
-   
-   /* walk through other tokens */
-   printf( " %s\n", token );
-   printf( " %s\n", token );
-   printf( " %s\n", token );
-   if (token == "This is")
-        printf ("YES");
-   while( token != NULL ) {
-      printf( " %s\n", token );
-    
-      token = strtok(NULL, s);
-   }
-   
-   return(0);
+   char operador = '*';
+
+   printf ("%d\n", operador);
+   return 0;
 }

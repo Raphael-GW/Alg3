@@ -31,26 +31,46 @@ struct nodo *cria_nodo (){
 }
 
 
-void insere_nodo (char *token){
-    if (!token) return NULL;
+void insere_nodo (struct arvore *tree, char *token, char *operacoes){
+    if (!tree || !token || operacoes) return NULL;
 
     struct nodo *novo = cria_nodo ();
-
-    char *operacoes = "/ * - +";
-    char *tk_op = strtok (operacoes, " ");
     short int inserido = 0;
 
-    while (tk_op != NULL){
-        if (strcmp (tk_op, token) == 1){
-            novo->ope = token;
-            inserido = 1;
-            break;
-        }
+    if (token >= 42 && token <= 47) novo->ope = token;
+    else novo->valor = atoi (token);
 
-        tk_op = strtok (NULL, " ");
+    tree->tam += 1;
+    //arvore vazia
+    if (!tree->raiz){
+        tree->raiz = novo;
+        return ;
     }
 
-    if (!inserido) novo->valor = token - '0';
+    struct nodo *aux = tree->raiz;
+
+    while (aux->fe != NULL) aux = aux->fe;
+
+    if (aux->ope){
+        aux->fe = novo;
+        novo->pai = aux;
+    }
+    else{
+        aux = aux->pai;
+        while (!inserido){
+            if (!aux->fd){
+                aux->fd = novo;
+                novo->pai = aux;
+                inserido = 1;
+            }
+        }
+    }
+
+
+
+
+
+
     
 
     
@@ -65,8 +85,10 @@ void imprime_preordem (){
 
 int main (){
     char expressao[TAM_EXP + 1];
-    const char *delim = " ";
+    const char *delim = ' ';
     char *token;
+    char *operacoes = '* + / -';
+    struct arvore *tree = malloc (sizeof (struct arvore));
 
     if (fgets(expressao, TAM_EXP, stdin) != NULL) {
         // Remove o '\n' que o fgets guarda no final
@@ -77,10 +99,11 @@ int main (){
     }
     token = strtok (expressao, delim);
 
-    while(token != NULL) {
-      printf("%s\n", token);
     
-      token = strtok(NULL, delim);
+    while(token != NULL) {
+        insere_nodo (tree, token, operacoes);
+    
+        token = strtok(NULL, delim);
     }
     
     
