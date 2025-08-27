@@ -6,8 +6,7 @@
 #define TAM_EXP 100
 
 struct nodo {
-    char ope;
-    int valor;
+    char *key;
     struct nodo *pai;
     struct nodo *fe;
     struct nodo *fd;
@@ -31,14 +30,12 @@ struct nodo *cria_nodo (){
 }
 
 
-void insere_nodo (struct arvore *tree, char *token, char *operacoes){
-    if (!tree || !token || operacoes) return NULL;
+void insere_nodo (struct arvore *tree, char *token){
+    if (!tree || !token) return ;
 
     struct nodo *novo = cria_nodo ();
-    short int inserido = 0;
 
-    if (token >= 42 && token <= 47) novo->ope = token;
-    else novo->valor = atoi (token);
+    novo->key = token;
 
     tree->tam += 1;
     //arvore vazia
@@ -48,46 +45,41 @@ void insere_nodo (struct arvore *tree, char *token, char *operacoes){
     }
 
     struct nodo *aux = tree->raiz;
+    struct nodo *pai = NULL;
 
-    while (aux->fe != NULL) aux = aux->fe;
-
-    if (aux->ope){
-        aux->fe = novo;
-        novo->pai = aux;
+    while (aux != NULL){
+        pai = aux;
+        if (aux->key < 48) aux = aux->fe;
+        else aux = aux->fd;
     }
-    else{
-        aux = aux->pai;
-        while (!inserido){
-            if (!aux->fd){
-                aux->fd = novo;
-                novo->pai = aux;
-                inserido = 1;
-            }
-        }
-    }
-
-
-
-
-
-
+    novo->pai = pai;
     
-
-    
-
-
+    if (pai->fe) pai->fd = novo;
+    else pai->fe = novo;
     
 }
 
-void imprime_preordem (){
-    return ;
+void imprime_preordem (struct nodo *nodo){
+    if (nodo){
+        printf ("%s ", nodo->key);
+        imprime_preordem (nodo->fe);
+        imprime_preordem (nodo->fd);
+    }
+}
+
+struct arvore *destroi_arvore (struct nodo *nodo){
+    if (nodo){
+        destroi_arvore (nodo->fe);
+        destroi_arvore (nodo->fd);
+        free (nodo);
+    }
 }
 
 int main (){
     char expressao[TAM_EXP + 1];
-    const char *delim = ' ';
+    const char *delim = " ";
     char *token;
-    char *operacoes = '* + / -';
+    //char *operacoes = '* + / -';
     struct arvore *tree = malloc (sizeof (struct arvore));
 
     if (fgets(expressao, TAM_EXP, stdin) != NULL) {
@@ -101,11 +93,17 @@ int main (){
 
     
     while(token != NULL) {
-        insere_nodo (tree, token, operacoes);
-    
+        insere_nodo (tree, token);
         token = strtok(NULL, delim);
+        printf ("Nodo inserido\n");
     }
-    
+
+    imprime_preordem (tree->raiz);
+    printf ("\n");
+    printf ("Quantidades de nodos: %d\n", tree->tam);
+
+    destroi_arvore (tree->raiz);
+    free (tree);
     
 
     
