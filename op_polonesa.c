@@ -68,6 +68,7 @@ void imprime_preordem (struct nodo *nodo){
 }
 
 struct arvore *destroi_arvore (struct nodo *nodo){
+    if (!nodo) return NULL;
     if (nodo){
         destroi_arvore (nodo->fe);
         destroi_arvore (nodo->fd);
