@@ -56,11 +56,11 @@ void rotacaoEsquerda (struct nodo** raiz, struct nodo *nodo){
     struct nodo *y = nodo->fd;
     nodo->fd = y->fe;
 
-    if (y->fe != raiz[0]->pai) y->fe->pai = nodo;
+    if (y->fe != (*raiz)->pai) y->fe->pai = nodo;
 
     y->pai = nodo->pai;
 
-    if (nodo->pai == raiz[0]->pai) raiz[0] = y;
+    if (nodo->pai == (*raiz)->pai) (*raiz) = y;
     else{
         if (nodo == nodo->pai->fe) nodo->pai->fe = y;
 
@@ -77,11 +77,11 @@ void rotacaoDireita (struct nodo** raiz, struct nodo *nodo){
     struct nodo *y = nodo->fe;
     nodo->fe = y->fd;
 
-    if (y->fd != raiz[0]->pai) y->fd->pai = nodo;
+    if (y->fd != (*raiz)->pai) y->fd->pai = nodo;
 
     y->pai = nodo->pai;
 
-    if (nodo->pai == raiz[0]->pai) raiz[0] = y;
+    if (nodo->pai == (*raiz)->pai) (*raiz) = y;
     else{
         if (nodo == nodo->pai->fd) nodo->pai->fd = y;
 
@@ -134,31 +134,31 @@ void arrumaArvore (struct nodo** raiz, struct nodo *nodo){
             }
         }
     }
-    raiz[0]->cor = "preto";
+    (*raiz)->cor = "preto";
 }
 
 //retorna SENTINELA se não foi possível inserir
 struct nodo* inserir(struct nodo** raiz, int chave){
-    if (!raiz || chave == -1) return raiz[0]->pai;
+    if (!raiz || chave == -1) return (*raiz)->pai;
 
-    if (buscar (raiz[0], chave) != raiz[0]->pai) return raiz[0]->pai; // Chave já existe
+    if (buscar ((*raiz), chave) != (*raiz)->pai) return (*raiz)->pai; // Chave já existe
 
     struct nodo *novo = cria_nodo ();
-    if (!novo) return raiz[0]->pai;
+    if (!novo) return (*raiz)->pai;
 
     novo->chave = chave;
-
-    struct nodo *x = raiz[0];
-    struct nodo *y = raiz[0]->pai;
+    raiz[0]
+    struct nodo *x = (*raiz);
+    struct nodo *y = (*raiz)->pai;
     
-    while (x != raiz[0]->pai){
+    while (x != (*raiz)->pai){
         y = x;
         if (novo->chave < x->chave) x = x->fe;
         else x = x->fd;
     }
 
     novo->pai = y;
-    if (y == raiz[0]->pai) raiz[0] = novo; // Árvore vazia
+    if (y == (*raiz)->pai) (*raiz) = novo; // Árvore vazia
     else{
         if (novo->chave < y->chave) y->fe = novo;
         else y->fd = novo;
@@ -170,7 +170,12 @@ struct nodo* inserir(struct nodo** raiz, int chave){
 }
 
 void transplantar (struct nodo** raiz, struct nodo *u, struct nodo *v){
+    if (!raiz || !u || !v) return ;
 
+    if (u->pai == (*raiz)->pai) (*raiz) = v;
+    else{
+        
+    }
 }
 
 // retorna o número de nodos excluídos
