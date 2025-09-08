@@ -174,13 +174,112 @@ void transplantar (struct nodo** raiz, struct nodo *u, struct nodo *v){
 
     if (u->pai == (*raiz)->pai) (*raiz) = v;
     else{
-        
+        if (u == u->pai->fe) u->pai->fe = v;
+        else u->pai->fd = v;
     }
+    v->pai = u->pai;
 }
+
+void arrumaExcluir (struct nodo **raiz, struct nodo *x){
+    if (!raiz || !x) return ;
+
+    while (x != (*raiz) && x->cor == "preto"){
+        if (x == x->pai->fe){
+            struct nodo *w = x->pai->fd;
+            if (w->cor == "vermelho"){
+                w->cor = "preto";
+                x->pai->cor = "vermelho";
+                rotacaoEsquerda (raiz, x->pai);
+                w = x->pai->fd;
+            }
+            if (w->fe->cor == "preto" && w->fd->cor == "preto"){
+                w->cor = "vermelho";
+                x = x->pai;
+            }
+            else{
+                if (w->fd->cor == "preto"){
+                    w->fe->cor = "preto";
+                    w->cor = "vermelho";
+                    rotacaoDireita (raiz, w);
+                    w = x->pai->fd;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = "preto";
+                w->fd->cor = "preto";
+                rotacaoEsquerda (raiz, x->pai);
+                x = (*raiz);
+            }
+        }
+        else{
+            struct nodo *w = x->pai->fe;
+            if (w->cor == "vermelho"){
+                w->cor = "preto";
+                x->pai->cor = "vermelho";
+                rotacaoEsquerda (raiz, x->pai);
+                w = x->pai->fd;
+            }
+            if (w->fd->cor == "preto" && w->fe->cor == "preto"){
+                w->cor = "vermelho";
+                x = x->pai;
+            }
+            else{
+                if (w->fe->cor == "preto"){
+                    w->fd->cor = "preto";
+                    w->cor = "vermelho";
+                    rotacaoEsquerda (raiz, w);
+                    w = x->pai->fd;
+                }
+                w->cor = x->pai->cor;
+                x->pai->cor = "preto";
+                w->fe->cor = "preto";
+                rotacaoDireita (raiz, x->pai);
+                x = (*raiz);
+            }
+        }
+    }  
+}   
 
 // retorna o número de nodos excluídos
 int excluir(struct nodo** raiz, int chave){
-    return 0;
+    if (!raiz) return 0;
+
+    struct nodo *z = buscar ((*raiz), chave);
+    if (z == (*raiz)->pai) return 0; //não existe a chave na árvore
+
+    struct nodo *y = z;
+    struct nodo *x;
+    char *cor_original = y->cor;
+
+    if (z->fe == (*raiz)->pai){
+        x = z->fd;
+        transplantar (raiz, z, z->fd);
+    }
+    else{
+        if (z->fd == (*raiz)->pai){
+            x = z->fe;
+            transplantar (raiz, z, z->fe);
+        }
+        else{
+            y = minimo (z->fd);
+            cor_original = y->cor;
+            x = y->fd;
+            if (y != z->fd){
+                transplantar (raiz, y, y->fd);
+                y->fd = z->fd;
+                y->fd->pai = y;
+            }
+            else x->pai = y;
+
+            transplantar (raiz, z, y);
+            y->fe = z->fe;
+            y->fe->pai = y;
+            y.cor = z.cor;
+        }
+    }
+
+    if (cor_original == "preto") arrumaExcluir (raiz, x);
+
+    return 1;
 }
 
 //retorna SENTINELA se não existe
