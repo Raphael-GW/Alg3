@@ -1,0 +1,8 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Template'
+gcc -c main.c -Wall 
+ 
+cc    -c -o redblack.o redblack.c
+gcc -o antesprova2_20244362 main.o redblack.o -Wall 
+make.exe: Leaving directory `c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Template'
+ 

@@ -6,12 +6,14 @@
 int main(){
 	//ATENÇÃO, ESSE É APENAS UM EXEMPLO DE IMPLEMENTAÇÃO DO MAIN.
 	//MODIFIQUE DE ACORDO COM SUAS NECESSIDADES E DE ACORDO COM AS ESPECIFICAÇÕES.
-	struct nodo* raiz = cria_nodo ();
+	struct nodo* raiz = malloc (sizeof (struct nodo));
 	if (!raiz) return 0;
 	
 	raiz->chave = -1;
-	raiz->cor = "preto";
+	raiz->cor = "B";
 	raiz->pai = raiz;
+	raiz->fd = raiz;
+	raiz->fe = raiz;
 
 	imprimirDadosAluno();
 

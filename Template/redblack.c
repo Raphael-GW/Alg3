@@ -4,6 +4,11 @@
 
 #include "redblack.h"
 
+void matarProgramaFaltaMemoria (){
+    fprintf(stderr,"Falha ao alocar memoria.\n");
+    exit (1);
+}
+
 struct aluno* getAluno(){
     struct aluno* retorno = malloc(sizeof(struct aluno));
     if(!retorno)
@@ -37,15 +42,15 @@ void imprimirDadosAluno(){
 }
 
 //IMPLEMENTE AS DEMAIS FUNÇÕES AQUI
-struct nodo *cria_nodo (){
+struct nodo *cria_nodo (struct nodo **raiz){
     struct nodo *novo = malloc (sizeof (struct nodo));
     
     if (!novo) return NULL;
 
-    novo->fd = NULL;
-    novo->fe = NULL;
+    novo->fd = (*raiz)->pai;
+    novo->fe = (*raiz)->pai;
     novo->pai = NULL;
-    novo->cor = "vermelho";
+    novo->cor = "R";
 
     return novo;
 }
@@ -96,13 +101,13 @@ void rotacaoDireita (struct nodo** raiz, struct nodo *nodo){
 void arrumaArvore (struct nodo** raiz, struct nodo *nodo){
     if (!raiz || !nodo) return ;
 
-    while (nodo->pai->cor == "vermelho"){
+    while (nodo->pai->cor == "R"){
         if (nodo->pai == nodo->pai->pai->fe){
             struct nodo *y = nodo->pai->pai->fd;
-            if (y->cor == "vermelho"){
-                nodo->pai->cor = "preto";
-                y->cor = "preto";
-                nodo->pai->pai->cor = "vermelho";
+            if (y->cor == "R"){
+                nodo->pai->cor = "B";
+                y->cor = "B";
+                nodo->pai->pai->cor = "R";
                 nodo = nodo->pai->pai;
             }
             else{
@@ -110,17 +115,17 @@ void arrumaArvore (struct nodo** raiz, struct nodo *nodo){
                     nodo = nodo->pai;
                     rotacaoEsquerda (raiz, nodo);
                 }
-                nodo->pai->cor = "preto";
-                nodo->pai->pai->cor = "vermelho";
+                nodo->pai->cor = "B";
+                nodo->pai->pai->cor = "R";
                 rotacaoDireita (raiz, nodo->pai->pai);
             }
         }
         else{
             struct nodo *y = nodo->pai->pai->fe;
-            if (y->cor == "vermelho"){
-                nodo->pai->cor = "preto";
-                y->cor = "preto";
-                nodo->pai->pai->cor = "vermelho";
+            if (y->cor == "R"){
+                nodo->pai->cor = "B";
+                y->cor = "B";
+                nodo->pai->pai->cor = "R";
                 nodo = nodo->pai->pai;
             }
             else{
@@ -128,13 +133,13 @@ void arrumaArvore (struct nodo** raiz, struct nodo *nodo){
                     nodo = nodo->pai;
                     rotacaoDireita (raiz, nodo);
                 }
-                nodo->pai->cor = "preto";
-                nodo->pai->pai->cor = "vermelho";
+                nodo->pai->cor = "B";
+                nodo->pai->pai->cor = "R";
                 rotacaoEsquerda (raiz, nodo->pai->pai);
             }
         }
     }
-    (*raiz)->cor = "preto";
+    (*raiz)->cor = "B";
 }
 
 //retorna SENTINELA se não foi possível inserir
@@ -143,11 +148,10 @@ struct nodo* inserir(struct nodo** raiz, int chave){
 
     if (buscar ((*raiz), chave) != (*raiz)->pai) return (*raiz)->pai; // Chave já existe
 
-    struct nodo *novo = cria_nodo ();
+    struct nodo *novo = cria_nodo (raiz);
     if (!novo) return (*raiz)->pai;
 
     novo->chave = chave;
-    raiz[0]
     struct nodo *x = (*raiz);
     struct nodo *y = (*raiz)->pai;
     
@@ -183,61 +187,75 @@ void transplantar (struct nodo** raiz, struct nodo *u, struct nodo *v){
 void arrumaExcluir (struct nodo **raiz, struct nodo *x){
     if (!raiz || !x) return ;
 
-    while (x != (*raiz) && x->cor == "preto"){
+    while (x != (*raiz) && x->cor == "B"){
         if (x == x->pai->fe){
             struct nodo *w = x->pai->fd;
-            if (w->cor == "vermelho"){
-                w->cor = "preto";
-                x->pai->cor = "vermelho";
+            if (w->cor == "R"){
+                w->cor = "B";
+                x->pai->cor = "R";
                 rotacaoEsquerda (raiz, x->pai);
                 w = x->pai->fd;
             }
-            if (w->fe->cor == "preto" && w->fd->cor == "preto"){
-                w->cor = "vermelho";
+            if (w->fe->cor == "B" && w->fd->cor == "B"){
+                w->cor = "R";
                 x = x->pai;
             }
             else{
-                if (w->fd->cor == "preto"){
-                    w->fe->cor = "preto";
-                    w->cor = "vermelho";
+                if (w->fd->cor == "B"){
+                    w->fe->cor = "B";
+                    w->cor = "R";
                     rotacaoDireita (raiz, w);
                     w = x->pai->fd;
                 }
                 w->cor = x->pai->cor;
-                x->pai->cor = "preto";
-                w->fd->cor = "preto";
+                x->pai->cor = "B";
+                w->fd->cor = "B";
                 rotacaoEsquerda (raiz, x->pai);
                 x = (*raiz);
             }
         }
         else{
             struct nodo *w = x->pai->fe;
-            if (w->cor == "vermelho"){
-                w->cor = "preto";
-                x->pai->cor = "vermelho";
+            if (w->cor == "R"){
+                w->cor = "B";
+                x->pai->cor = "R";
                 rotacaoEsquerda (raiz, x->pai);
                 w = x->pai->fd;
             }
-            if (w->fd->cor == "preto" && w->fe->cor == "preto"){
-                w->cor = "vermelho";
+            if (w->fd->cor == "B" && w->fe->cor == "B"){
+                w->cor = "R";
                 x = x->pai;
             }
             else{
-                if (w->fe->cor == "preto"){
-                    w->fd->cor = "preto";
-                    w->cor = "vermelho";
+                if (w->fe->cor == "B"){
+                    w->fd->cor = "B";
+                    w->cor = "R";
                     rotacaoEsquerda (raiz, w);
                     w = x->pai->fd;
                 }
                 w->cor = x->pai->cor;
-                x->pai->cor = "preto";
-                w->fe->cor = "preto";
+                x->pai->cor = "B";
+                w->fe->cor = "B";
                 rotacaoDireita (raiz, x->pai);
                 x = (*raiz);
             }
         }
     }  
 }   
+
+struct nodo *minimo (struct nodo **raiz, struct nodo *n){
+    if (!raiz || !n) return NULL;
+
+    struct nodo *min = n;
+    struct nodo *aux = n->fe;
+
+    while (aux != (*raiz)->pai){
+        min = aux;
+        aux = min->fe;
+    }
+
+    return min;
+}
 
 // retorna o número de nodos excluídos
 int excluir(struct nodo** raiz, int chave){
@@ -260,7 +278,7 @@ int excluir(struct nodo** raiz, int chave){
             transplantar (raiz, z, z->fe);
         }
         else{
-            y = minimo (z->fd);
+            y = minimo (raiz, z->fd);
             cor_original = y->cor;
             x = y->fd;
             if (y != z->fd){
@@ -273,12 +291,12 @@ int excluir(struct nodo** raiz, int chave){
             transplantar (raiz, z, y);
             y->fe = z->fe;
             y->fe->pai = y;
-            y.cor = z.cor;
+            y->cor = z->cor;
         }
     }
 
-    if (cor_original == "preto") arrumaExcluir (raiz, x);
-
+    if (cor_original == "B") arrumaExcluir (raiz, x);
+    free (z);
     return 1;
 }
 
@@ -292,9 +310,38 @@ struct nodo* buscar(struct nodo* raiz, int chave){
 }
 
 void imprimirEmOrdem(struct nodo* nodo){
-    return ;
+    if (nodo->chave != -1){
+        imprimirEmOrdem (nodo->fe);
+        printf ("(%s)%d ", nodo->cor, nodo->chave);
+        imprimirEmOrdem (nodo->fd);
+    }
 }
 
 void imprimirEmLargura(struct nodo* raiz){
-    return ;
+    if (!raiz || raiz->chave == -1) return ; //árvore vazia
+    
+    struct nodo **fila;
+    int tam = 0;
+    int prim = 0;
+
+    fila[tam] = raiz;
+    tam += 1;
+    while (tam > 0){
+        struct nodo *n = fila[prim];
+        printf ("(%s)%d ", n->cor, n->chave);
+
+        if (n->fe != raiz->pai){
+            fila[tam] = n->fe;
+            tam += 1;
+        }
+        if (n->fd != raiz->pai){
+            fila[tam] = n->fd;
+            tam += 1;
+        }
+        tam -= 1;
+        prim += 1;
+    }
+
+
+    
 }
