@@ -4,6 +4,42 @@
 
 #include "redblack.h"
 
+
+struct obj {
+    struct nodo *n;
+    int nivel;
+    struct obj *prox;
+};
+struct fila {
+    struct obj *prim;
+    struct obj *last;
+    int tam;
+};
+
+struct fila *cria_fila (){
+    struct fila *f = malloc (sizeof (struct fila));
+    if (!f) return NULL;
+
+    f->prim = NULL;
+    f->last = NULL;
+    f->tam = 0;
+
+    return f;
+}
+
+struct obj *cria_obj (struct nodo *nodo, int nivel){
+    if (!nodo) return NULL;
+
+    struct obj *o = malloc (sizeof (struct obj));
+    if (!o) return NULL;
+
+    o->n = nodo;
+    o->nivel = nivel;
+    o->prox = NULL;
+
+    return o;
+}
+
 void matarProgramaFaltaMemoria (){
     fprintf(stderr,"Falha ao alocar memoria.\n");
     exit (1);
@@ -243,13 +279,13 @@ void arrumaExcluir (struct nodo **raiz, struct nodo *x){
     }  
 }   
 
-struct nodo *minimo (struct nodo **raiz, struct nodo *n){
-    if (!raiz || !n) return NULL;
+struct nodo *minimo (struct nodo *n){
+    if (!n) return NULL;
 
     struct nodo *min = n;
     struct nodo *aux = n->fe;
 
-    while (aux != (*raiz)->pai){
+    while (aux->chave != -1){
         min = aux;
         aux = min->fe;
     }
@@ -278,7 +314,7 @@ int excluir(struct nodo** raiz, int chave){
             transplantar (raiz, z, z->fe);
         }
         else{
-            y = minimo (raiz, z->fd);
+            y = minimo (z->fd);
             cor_original = y->cor;
             x = y->fd;
             if (y != z->fd){
@@ -312,36 +348,74 @@ struct nodo* buscar(struct nodo* raiz, int chave){
 void imprimirEmOrdem(struct nodo* nodo){
     if (nodo->chave != -1){
         imprimirEmOrdem (nodo->fe);
-        printf ("(%s)%d ", nodo->cor, nodo->chave);
+        printf ("(%s)%d  ", nodo->cor, nodo->chave);
         imprimirEmOrdem (nodo->fd);
     }
 }
 
-void imprimirEmLargura(struct nodo* raiz){
-    if (!raiz || raiz->chave == -1) return ; //árvore vazia
-    
-    struct nodo **fila;
-    int tam = 0;
-    int prim = 0;
+void enfileirar (struct fila *f, struct obj *o){
+    if (!f || !o) return ;
 
-    fila[tam] = raiz;
-    tam += 1;
-    while (tam > 0){
-        struct nodo *n = fila[prim];
-        printf ("(%s)%d ", n->cor, n->chave);
-
-        if (n->fe != raiz->pai){
-            fila[tam] = n->fe;
-            tam += 1;
-        }
-        if (n->fd != raiz->pai){
-            fila[tam] = n->fd;
-            tam += 1;
-        }
-        tam -= 1;
-        prim += 1;
+    if (!f->prim){ // fila vazia
+        f->prim = o;
+        f->last = o;
+        f->tam += 1;
+        return ;
     }
 
+    f->last->prox = o;
+    f->last = o;
+    f->tam += 1;
+}
 
+struct obj *desenfileirar (struct fila *f){
+    if (!f) return NULL;
+
+    if (!f->prim) return NULL; // fila vazia
+
+    struct obj *aux = f->prim;
+
+    if (f->prim->prox) f->prim = f->prim->prox;
+    else f->prim = NULL;
+
+    f->tam -= 1;
+
+    return aux;
+}
+
+void imprimirEmLargura(struct nodo* raiz){
+    if (!raiz || raiz->chave == -1) return ; //árvore vazia
+    int nivel_atual = 0;
+
+    struct fila *f = cria_fila ();
+    if (!f) return ;
+
+    struct obj *novo = cria_obj (raiz, 0);
+    if (!novo) return ;
     
+    enfileirar (f, novo);
+    printf ("[%d]   ", nivel_atual);
+    while (f->tam > 0){
+        struct obj *aux = desenfileirar (f);
+        if (aux->nivel > nivel_atual){ // se nivel do nodo for maior vai para linha de baixo
+            printf ("\n");
+            nivel_atual = aux->nivel;
+            printf ("[%d]   ", nivel_atual);
+        }
+
+        if (aux->n == raiz) printf ("(%s)%d  [%d]", aux->n->cor, aux->n->chave, aux->n->pai->chave); // raiz
+
+        if (aux->n == aux->n->pai->fe) printf ("(%s)%d  [%de]  ", aux->n->cor, aux->n->chave, aux->n->pai->chave); // filho esquerdo
+
+        if (aux->n == aux->n->pai->fd) printf ("(%s)%d  [%dd]  ", aux->n->cor, aux->n->chave, aux->n->pai->chave); // filho esquerdo
+
+        if (aux->n->fe->chave != -1){
+            struct obj *fe = cria_obj (aux->n->fe, aux->nivel + 1);
+            enfileirar (f, fe);
+        }
+        if (aux->n->fd->chave != -1){
+            struct obj *fd = cria_obj (aux->n->fd, aux->nivel + 1);
+            enfileirar (f, fd);
+        }
+    }
 }

@@ -42,10 +42,10 @@ int main(){
 			case 'b':
 			 	scanf("%d", &val);
 				struct nodo* valB = buscar(raiz, val);
-				if(valB != raiz[0].pai)
+				if(valB != (*raiz).pai)
 					printf("Encontrado %d\n", valB->chave);
 				else
-					printf("Nao encontrado %d.\n", val);
+					printf("Nao encontrado %d\n", val);
 				break;
 			default:
 				fprintf(stderr,"Opcao Invalida %d", (int)op);
