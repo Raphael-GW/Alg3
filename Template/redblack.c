@@ -10,6 +10,7 @@ struct obj {
     int nivel;
     struct obj *prox;
 };
+
 struct fila {
     struct obj *prim;
     struct obj *last;
@@ -86,7 +87,7 @@ struct nodo *cria_nodo (struct nodo **raiz){
     novo->fd = (*raiz)->pai;
     novo->fe = (*raiz)->pai;
     novo->pai = NULL;
-    novo->cor = "R";
+    novo->cor = "R"; // inicia sempre em Red
 
     return novo;
 }
@@ -97,10 +98,11 @@ void rotacaoEsquerda (struct nodo** raiz, struct nodo *nodo){
     struct nodo *y = nodo->fd;
     nodo->fd = y->fe;
 
-    if (y->fe != (*raiz)->pai) y->fe->pai = nodo;
+    if (y->fe != (*raiz)->pai) y->fe->pai = nodo; // filho direito mais próximo do nodo vira o fd
 
-    y->pai = nodo->pai;
+    y->pai = nodo->pai; // pai do nodo vira pai no fd do nodo
 
+    // fd do nodo pega a posição dele
     if (nodo->pai == (*raiz)->pai) (*raiz) = y;
     else{
         if (nodo == nodo->pai->fe) nodo->pai->fe = y;
@@ -137,9 +139,10 @@ void rotacaoDireita (struct nodo** raiz, struct nodo *nodo){
 void arrumaArvore (struct nodo** raiz, struct nodo *nodo){
     if (!raiz || !nodo) return ;
 
+    // se pai do nodo for Red arruma
     while (nodo->pai->cor == "R"){
-        if (nodo->pai == nodo->pai->pai->fe){
-            struct nodo *y = nodo->pai->pai->fd;
+        if (nodo->pai == nodo->pai->pai->fe){ // se pai de nodo for um fe
+            struct nodo *y = nodo->pai->pai->fd; //irmão do pai do nodo
             if (y->cor == "R"){
                 nodo->pai->cor = "B";
                 y->cor = "B";
@@ -418,4 +421,5 @@ void imprimirEmLargura(struct nodo* raiz){
             enfileirar (f, fd);
         }
     }
+    printf ("\n");
 }

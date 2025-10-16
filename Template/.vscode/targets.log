@@ -6,7 +6,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # PARTICULAR PURPOSE.
  
 
-# Make data base, printed on Wed Sep 10 13:50:26 2025
+# Make data base, printed on Thu Oct 16 16:52:16 2025
 
 # Variables
 
@@ -55,14 +55,13 @@ PROGRAMDATA = C:\ProgramData
 # environment
 VSCODE_CWD = C:\Users\rapha\OneDrive - ufpr.br\�rea de Trabalho\Alg3\Template
 # environment
-PATH = C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;
+PATH = C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\Users\rapha\AppData\Local\Programs\Python\Launcher\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts\git-filter-repo.exe;
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # environment
 ZES_ENABLE_SYSMAN = 1
 # environment
-PROC 
-ESSOR_ARCHITECTURE = x86
+PROCESSOR_ARCHITECTURE = x86
 # environment
 USERPROFILE = C:\Users\rapha
 # environment
@@ -74,7 +73,7 @@ ELECTRON_RUN_AS_NODE = 1
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_18828_PHEDBISAYDDCMYTV
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_18556_JVZSNLKOCAMGJAQH
 # makefile (from `makefile', line 1)
 parametrosCompilacao = -Wall 
 # environment
@@ -86,7 +85,7 @@ DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-WT_SESSION = 39b97e9b-02aa-4c69-b9fc-9883ff6b46fa
+WT_SESSION = 96d91b0d-f6ff-4886-94df-3b7876150c79
 # environment
 USERNAME = rapha
 # environment
@@ -94,7 +93,7 @@ PUBLIC = C:\Users\Public
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\rapha\AppData\Roaming\Code\CachedData\6f17636121051a53c88d3e605c491d22af2ba755
+VSCODE_CODE_CACHE_PATH = C:\Users\rapha\AppData\Roaming\Code\CachedData\385651c938df8a906869babee516bffd0ddb9829
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
@@ -138,7 +137,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 190 Stepping 0, GenuineIntel
 # environment
 OS = Windows_NT
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\f48552b0-1.103.2-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\f48552b0-1.104.3-main-sock
 # environment
 HOMEPATH = \Users\rapha
 # environment
@@ -158,7 +157,7 @@ SYSTEMROOT = C:\WINDOWS
 # environment
 APPDATA = C:\Users\rapha\AppData\Roaming
 # environment
-Path = C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;
+Path = C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\Users\rapha\AppData\Local\Programs\Python\Launcher\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts\git-filter-repo.exe;
 # environment
 TEMP = C:\Users\rapha\AppData\Local\Temp
 # environment
@@ -190,30 +189,31 @@ LANG = C
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-VSCODE_PID = 18828
+VSCODE_PID = 18556
 # environment
 USERDOMAIN_ROAMINGPROFILE = RAPHAGW
 # variable set hash-table stats:
-# Load=91/1024=9%, Rehash=0, Collisions=9/112=8%
+# Load=91/1024=9%, Rehash=0, Collisions=9/109=8%
 
 # Directories
 
 # C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1757157030): 29 files, no impossibilities.
 # C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1757157030): 150 files, no impossibilities.
-# . (key c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Template, mtime 1757522953): 8 files, no impossibilities.
+# . (key c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Template, mtime 1760644318): 11 files, no impossibilities.
 # C:\Program Files\dotnet\ (key C:/Program Files/dotnet/, mtime 1746214553): 13 files, no impossibilities.
 # C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1757458319): 111 files, no impossibilities.
+# C:\Users\rapha\AppData\Local\Programs\Python\Launcher\ (key C:/Users/rapha/AppData/Local/Programs/Python/Launcher/, mtime 1759183797): 5 files, no impossibilities.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1760478685): 109 files, no impossibilities.
 # C:\ProgramData\Oracle\Java\javapath (key C:/ProgramData/Oracle/Java/javapath, mtime 1740574056): 5 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1757446179): 5 files, no impossibilities.
+# C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1759959262): 5 files, no impossibilities.
 # C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1744317022): 5 files, no impossibilities so far.
 # C:\Users\rapha\.dotnet\tools: could not be stat'd.
 # C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\ (key C:/Program Files (x86)/Microsoft Group Policy/Windows Server 2022 August 2021 Update/PolicyDefinitions/, mtime 1757171433): 238 files, no impossibilities.
 # C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1744317047): 13 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1757366508): 2972 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Microsoft\WindowsApps (key C:/Users/rapha/AppData/Local/Microsoft/WindowsApps, mtime 1757020167): 52 files, no impossibilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1760478929): 2973 files, no impossibilities.
+# C:\Users\rapha\AppData\Local\Microsoft\WindowsApps (key C:/Users/rapha/AppData/Local/Microsoft/WindowsApps, mtime 1760493990): 63 files, no impossibilities.
 
-# 3601 files, no impossibilities in 14 directories.
+# 3619 files, no impossibilities in 15 directories.
 
 # Implicit Rules
 
@@ -235,14 +235,13 @@ all: antesprova2_20244362
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 main.c:
 #  Implicit rule search has been done.
-#  Last modified 2025-09-10 13:49:13
+#  Last modified 2025-10-16 16:51:58
 #  File has been updated.
 #  Successfully updated.
 
@@ -254,11 +253,9 @@ main.c:
 
 antesprova2_20244362: main.o redblack.o
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Last modified 2025-10-16 16:51:58
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  Successfully updated.
 #  commands to execute (from `makefile', line 7):
 	gcc -o $(nomePrograma) main.o redblack.o $(parametrosCompilacao)
 	
@@ -279,8 +276,9 @@ makefile:
 # Not a target:
 redblack.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2025-10-16 16:51:58
+#  File has been updated.
+#  Successfully updated.
 
 ordenacao.o: redblack.h redblack.c
 #  Implicit rule search has not been done.
@@ -300,28 +298,9 @@ clean:
 
 main.o: main.c
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
-#  File does not exist.
+#  Last modified 2025-10-16 16:51:58
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := main.o
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := main.c
-# automatic
-# | := 
-# automatic
-# < := main.c
-# automatic
-# ^ := main.c
-# automatic
-# ? := main.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  Successfully updated.
 #  commands to execute (from `makefile', line 10):
 	gcc -c main.c $(parametrosCompilacao)
 	
@@ -329,20 +308,17 @@ main.o: main.c
 # Not a target:
 redblack.c:
 #  Implicit rule search has not been done.
-#  Modification time ne 
-ver checked.
+#  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/31=0%
+# Load=12/1024=1%, Rehash=0, Collisions=0/30=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
 
 # No general (`VPATH' variable) search path.
 
-# Finished Make data base on Wed Sep 10 13:50:26 2025
+# Finished Make data base on Thu Oct 16 16:52:16 2025
 
  
-make.exe: *** No rule to make target `redblack.o'.  Stop.
-
