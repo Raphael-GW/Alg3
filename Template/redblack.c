@@ -423,3 +423,13 @@ void imprimirEmLargura(struct nodo* raiz){
     }
     printf ("\n");
 }
+
+int altura_negra(struct nodo *raiz) {
+    if (raiz->chave == -1) return 0;
+
+    int h = altura_negra(raiz->fe);
+
+    if (raiz->cor == "B") h++;
+    
+    return h;
+}
