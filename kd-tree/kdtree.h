@@ -8,6 +8,11 @@ struct nodo {
     int *vetchave;
 };
 
+struct tree {
+    struct nodo *raiz;
+    int num_dims;
+};
+
 struct nodo *cria_nodo ();
 
 struct aluno{
@@ -20,17 +25,17 @@ struct aluno* getAluno();
 
 void imprimirDadosAluno();
 
-//retorna SENTINELA se não foi possível inserir
-struct nodo* inserir(struct nodo** raiz, int chave);
+//retorna NULO se não foi possível inserir
+struct nodo* inserir(struct tree *t, int *vetchave);
 
 // retorna o número de nodos excluídos
-int excluir(struct nodo** raiz, int chave);
+int excluir(struct tree *t, int *vetchave);
 
 //retorna SENTINELA se não existe
-struct nodo* buscar(struct nodo* raiz, int chave);
+struct nodo* buscar(struct nodo *r, int *vetchave, int coord, int k);
 
-void imprimirEmOrdem(struct nodo* nodo);
+void imprimirEmOrdem(struct tree *t);
 
-void imprimirEmLargura(struct nodo* raiz);
+void imprimirEmLargura(struct tree *t);
 
 #endif
