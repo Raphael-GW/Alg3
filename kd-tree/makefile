@@ -1,5 +1,5 @@
 parametrosCompilacao=-Wall #-Wshadow
-nomePrograma=antesprova3_20244362
+nomePrograma=prova4_20244362
 
 all: $(nomePrograma)
 
