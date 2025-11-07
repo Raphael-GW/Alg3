@@ -5,7 +5,8 @@ struct nodo {
     struct nodo *pai;
     struct nodo *fd;
     struct nodo *fe;
-    int *vetchave;
+    int classe;
+    float *vetchave;
 };
 
 struct tree {
@@ -26,15 +27,13 @@ struct aluno* getAluno();
 void imprimirDadosAluno();
 
 //retorna NULO se não foi possível inserir
-struct nodo* inserir(struct tree *t, int *vetchave);
+struct nodo* inserir(struct tree *t, float *vetchave, int c);
 
 // retorna o número de nodos excluídos
-int excluir(struct tree *t, int *vetchave);
+void vizinhos_prox(struct tree *t, float *vetchave, int num);
 
 //retorna SENTINELA se não existe
-struct nodo* buscar(struct nodo *r, int *vetchave, int coord, int k);
-
-void imprimirEmOrdem(struct tree *t);
+struct nodo* buscar(struct nodo *r, float *vetchave, int coord, int k);
 
 void imprimirEmLargura(struct tree *t);
 
