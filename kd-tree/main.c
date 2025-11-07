@@ -4,6 +4,22 @@
 #include "kdtree.h"
 
 
+void destroi_tree(struct tree* t){
+	if (!t) return ;
+}
+
+void em_ordem (struct nodo* n, int k){
+	if (n){
+		em_ordem (n->fe, k);
+		printf ("[");
+		for (size_t j = 0; j < k; j++){
+			printf(" %.1f", n->vetchave[j]);
+		}
+		printf ("]\n");
+		em_ordem (n->fd, k);
+	}
+}
+
 int main(){
 	//ATENÇÃO, ESSE É APENAS UM EXEMPLO DE IMPLEMENTAÇÃO DO MAIN.
 	//MODIFIQUE DE ACORDO COM SUAS NECESSIDADES E DE ACORDO COM AS ESPECIFICAÇÕES.
@@ -37,6 +53,8 @@ int main(){
 
 	printf ("Arvore Construida\n");
 
+	em_ordem (t->raiz, t->num_dims);
+
 	int z;
 	float busca[t->num_dims];
 	char op;
@@ -54,7 +72,7 @@ int main(){
 				if(valB != NULL){
 					printf("Encontrado. Classe %d\n", valB->classe);
 				}
-				else printf("Nao encontrado.");
+				else printf("Nao encontrado.\n");
 				break;
 			case 'z':
 				scanf ("%d", &z);

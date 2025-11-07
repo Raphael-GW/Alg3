@@ -97,10 +97,18 @@ struct nodo* inserir(struct tree *t, float *vetchave, int c){
         exit (1);
     }
 
-    novo->vetchave = vetchave;
-    novo->classe = c;
-    size_t coord = 0;
+    novo->vetchave = malloc (sizeof (float) * t->num_dims);
+    if (!novo->vetchave){
+        printf ("Falha ao alocar memória\n");
+        exit (1);
+    }
 
+    for (int i = 0; i < t->num_dims; i++){
+        novo->vetchave[i] = vetchave[i];
+    }
+    novo->classe = c;
+
+    size_t coord = 0;
     struct nodo *atual = t->raiz;
     struct nodo *pai = NULL;
     while (atual != NULL){
@@ -111,15 +119,18 @@ struct nodo* inserir(struct tree *t, float *vetchave, int c){
         }
         else atual = atual->fd;
 
-        coord = (coord + 1) % t->num_dims;
+        printf ("coord: %d\n", coord);
+        coord = (coord + 1) % t->num_dims;        
     }
 
     novo->pai = pai;
-    if (pai == NULL){
+    if (pai == NULL){   // arvore vazia
         t->raiz = novo;
     }
     else{
-        if (novo->vetchave[coord] < pai->vetchave[coord]){
+        size_t coord_pai = (coord + t->num_dims - 1) % t->num_dims;
+
+        if (novo->vetchave[coord_pai] < pai->vetchave[coord_pai]){
             pai->fe = novo;
         }
         else pai->fd = novo;
@@ -132,8 +143,6 @@ int compara_vet (float *vet1, float *vet2, int k){
     if (!vet1 || !vet2 || k == 0) return 1;
 
     for (size_t i = 0; i < k; i++){
-        printf ("Valor1: %.1f\n", vet1[i]);
-        printf ("Valor2: %.1f\n", vet2[i]);
         if (vet1[i] - vet2[i] != 0.0){
             return 1;
         }
