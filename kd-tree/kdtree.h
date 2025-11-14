@@ -14,6 +14,20 @@ struct tree {
     int num_dims;
 };
 
+struct melhor_vizinho {
+    struct nodo *n;
+    struct melhor_vizinho *prox;
+    float distancia;
+};
+
+struct fprio{
+    struct melhor_vizinho *prim;
+    int tam;
+};
+
+struct fprio* cria_fprio();
+
+
 struct nodo *cria_nodo ();
 
 struct aluno{
@@ -30,11 +44,13 @@ void imprimirDadosAluno();
 struct nodo* inserir(struct tree *t, float *vetchave, int c);
 
 // retorna o número de nodos excluídos
-void vizinhos_prox(struct tree *t, float *vetchave, int num);
+void z_vizinhos_prox(struct nodo *r, int coord, float *vetchave, int k, int z, struct melhor_vizinho *melhor, struct fprio* f);
 
 //retorna SENTINELA se não existe
 struct nodo* buscar(struct nodo *r, float *vetchave, int coord, int k);
 
 void imprimirEmLargura(struct tree *t);
+
+struct melhor_vizinho* cria_melhor(float d);
 
 #endif

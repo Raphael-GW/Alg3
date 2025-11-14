@@ -4,20 +4,12 @@
 #include "kdtree.h"
 
 
-void destroi_tree(struct tree* t){
-	if (!t) return ;
-}
-
-void em_ordem (struct nodo* n, int k){
-	if (n){
-		em_ordem (n->fe, k);
-		printf ("[");
-		for (size_t j = 0; j < k; j++){
-			printf(" %.1f", n->vetchave[j]);
-		}
-		printf ("]\n");
-		em_ordem (n->fd, k);
-	}
+void destroi_tree(struct nodo* r){
+	if (!r) return ;
+	destroi_tree(r->fe);
+	destroi_tree(r->fd);
+	free(r->vetchave);
+	free(r);
 }
 
 int main(){
@@ -53,8 +45,6 @@ int main(){
 
 	printf ("Arvore Construida\n");
 
-	em_ordem (t->raiz, t->num_dims);
-
 	int z;
 	float busca[t->num_dims];
 	char op;
@@ -79,7 +69,25 @@ int main(){
 				for (size_t j = 0; j < t->num_dims; j++){
 					scanf("%e", &val[j]);
 				}
-				vizinhos_prox (t, val, z);
+				struct fprio *f = cria_fprio();
+				if (!f){
+					printf ("Falha ao alocar memória\n");
+					exit (1);
+				}
+				struct melhor_vizinho *melhor = cria_melhor(1000.0);
+				z_vizinhos_prox(t->raiz, 0, val, t->num_dims, z, melhor, f);
+				printf ("Os %d vizinhos mais proximos sao:\n", z);
+				struct melhor_vizinho *atual = f->prim;
+				for (size_t i = 0; i < z; i++){
+					if (!atual) break;
+					for (size_t j = 0; j < (t->num_dims - 1); j++){
+						printf ("%.1f, ", atual->n->vetchave[j]);
+					}
+					printf ("%.1f ", atual->n->vetchave[t->num_dims - 1]);
+					printf ("classe %d), dist = %.4f\n", atual->n->classe, atual->distancia);
+					atual = atual->prox;
+				}
+				break;
 			default:
 				fprintf(stderr,"Opcao Invalida %d", (int)op);
 		}

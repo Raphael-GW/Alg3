@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "kdtree.h"
 
 
@@ -119,7 +120,6 @@ struct nodo* inserir(struct tree *t, float *vetchave, int c){
         }
         else atual = atual->fd;
 
-        printf ("coord: %d\n", coord);
         coord = (coord + 1) % t->num_dims;        
     }
 
@@ -160,13 +160,6 @@ struct nodo* buscar(struct nodo *r, float *vetchave, int coord, int k){
         return buscar (r->fe, vetchave, (coord + 1) % k, k);
     }
     return buscar (r->fd, vetchave, (coord + 1) % k, k);
-}
-
-// retorna o número de nodos excluídos
-int excluir(struct tree *t, int *vetchave){
-    if (!t || !vetchave) return 0;
-
-    return 1;
 }
 
 void enfileirar (struct fila *f, struct obj *o){
@@ -264,6 +257,89 @@ void imprimirEmLargura(struct tree* t){
     printf ("\n");
 }
 
-void vizinhos_prox(struct tree *t, float *vetchave, int num){
-    if (!t || !vetchave) return ;
+struct fprio* cria_fprio(){
+    struct fprio *f = malloc (sizeof (struct fprio));
+    if (!f) return NULL;
+
+    f->prim = NULL;
+    f->tam = 0;
+
+    return f;
+}
+
+struct melhor_vizinho* cria_melhor(float d){
+    struct melhor_vizinho *m = malloc (sizeof (struct melhor_vizinho));
+    if (!m) return NULL;
+
+    m->n = NULL;
+    m->prox = NULL;
+    m->distancia = d;
+
+    return m;
+}
+
+
+void insere_fprio (struct fprio *f, struct melhor_vizinho *m){
+    if (!f || !m) return ;
+
+    if (!f->prim){ // fila vazia
+        f->prim = m;
+        f->tam += 1;
+        return ;
+    }
+
+    struct melhor_vizinho *atual = f->prim;
+    struct melhor_vizinho *ant = NULL;
+
+    while (atual != NULL && atual->distancia < m->distancia){
+        ant = atual;
+        atual = atual->prox;
+    }
+
+    if (ant == NULL){ // insere no inicio
+        m->prox = f->prim;
+        f->prim = m;
+    }
+    else{
+        ant->prox = m;
+        m->prox = atual;
+    }
+
+    f->tam += 1;
+}
+
+
+// pega os z vizinhos mais próximos e coloca na fila de prioridade f, sendo a distancia a prioridade
+void z_vizinhos_prox(struct nodo *r, int coord, float *vetchave, int k, int z, struct melhor_vizinho *melhor, struct fprio *f){
+    if (!r || !vetchave || z <= 0 || !melhor || !f) return ;
+
+    if (!r->fe && !r->fd){
+        float soma = 0.0;
+        for (size_t i = 0; i < k; i++){
+            soma += (r->vetchave[i] - vetchave[i]) * (r->vetchave[i] - vetchave[i]);
+        }
+        float distancia = sqrt(soma);
+        if (distancia < melhor->distancia){
+            struct melhor_vizinho *novo = cria_melhor (distancia);
+            if (!novo){
+                printf ("Falha ao alocar memória\n");
+                exit (1);
+            }
+            novo->n = r;
+            if (f->tam < z){
+                insere_fprio (f, novo);
+            }
+            else{ // se a fila tiver os z elementos, termina a função
+                melhor = NULL;
+                return melhor;
+            }
+
+            // atualiza melhor
+            struct melhor_vizinho *ultimo = f->prim;
+            while (ultimo->prox != NULL){
+                ultimo = ultimo->prox;
+            }
+            melhor->distancia = ultimo->distancia;
+        }
+    }
 }
