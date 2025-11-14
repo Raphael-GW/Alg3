@@ -44,7 +44,7 @@ void imprimirDadosAluno();
 struct nodo* inserir(struct tree *t, float *vetchave, int c);
 
 // retorna o número de nodos excluídos
-void z_vizinhos_prox(struct nodo *r, int coord, float *vetchave, int k, int z, struct melhor_vizinho *melhor, struct fprio* f);
+struct melhor_vizinho* z_vizinhos_prox(struct nodo *r, int coord, float *vetchave, int k, int z, struct melhor_vizinho *melhor, struct fprio* f);
 
 //retorna SENTINELA se não existe
 struct nodo* buscar(struct nodo *r, float *vetchave, int coord, int k);
