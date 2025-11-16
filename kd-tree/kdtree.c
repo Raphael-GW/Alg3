@@ -278,16 +278,12 @@ struct melhor_vizinho* cria_melhor(float d){
     return m;
 }
 
+// insere um melhor_vizinho mantendo a fila ordenada (menor distancia primeiro)
+// e garantindo tamanho máximo z (remove o maior quando necessario)
+static void insere_fprio_limit(struct fprio *f, struct melhor_vizinho *m, int z){
+    if (!f || !m || z <= 0) return;
 
-void insere_fprio (struct fprio *f, struct melhor_vizinho *m){
-    if (!f || !m) return ;
-
-    if (!f->prim){ // fila vazia
-        f->prim = m;
-        f->tam += 1;
-        return ;
-    }
-
+    // encontra posicao correta em ordem crescente de distancia
     struct melhor_vizinho *atual = f->prim;
     struct melhor_vizinho *ant = NULL;
 
@@ -296,7 +292,7 @@ void insere_fprio (struct fprio *f, struct melhor_vizinho *m){
         atual = atual->prox;
     }
 
-    if (ant == NULL){ // insere no inicio
+    if (ant == NULL){
         m->prox = f->prim;
         f->prim = m;
     }
@@ -306,77 +302,68 @@ void insere_fprio (struct fprio *f, struct melhor_vizinho *m){
     }
 
     f->tam += 1;
+
+    // se passou do limite, remove o último (maior distancia)
+    if (f->tam > z){
+        struct melhor_vizinho *atual_rem = f->prim;
+        struct melhor_vizinho *ant_rem = NULL;
+        while (atual_rem->prox != NULL){
+            ant_rem = atual_rem;
+            atual_rem = atual_rem->prox;
+        }
+        if (ant_rem == NULL){
+            f->prim = atual_rem->prox;
+        }
+        else{
+            ant_rem->prox = atual_rem->prox;
+        }
+        f->tam -= 1;
+        free(atual_rem);
+    }
 }
 
 
 // pega os z vizinhos mais próximos e coloca na fila de prioridade f, sendo a distancia a prioridade
 struct melhor_vizinho* z_vizinhos_prox(struct nodo *r, int coord, float *vetchave, int k, int z, struct melhor_vizinho *melhor, struct fprio *f){
-    if (!r || !vetchave || z <= 0 || !melhor || !f) return ;
+    if (!vetchave || z <= 0 || !melhor || !f) return NULL;
+    if (!r) return melhor;
 
-    float soma = 0.0;
-    for (size_t i = 0; i < k; i++){
-            soma += (r->vetchave[i] - vetchave[i]) * (r->vetchave[i] - vetchave[i]);
+    // calcula distancia do nodo atual ao ponto de busca
+    float soma = 0.0f;
+    for (int i = 0; i < k; i++){
+        float diff = r->vetchave[i] - vetchave[i];
+        soma += diff * diff;
     }
+    float distancia = sqrtf(soma);
 
-    float distancia = sqrt(soma);
-
-    if (!r->fe && !r->fd){
-        if (distancia < melhor->distancia){
-            struct melhor_vizinho *novo = cria_melhor (distancia);
-            if (!novo){
-                printf ("Falha ao alocar memória\n");
-                exit (1);
-            }
-            novo->n = r;
-            if (f->tam < z){
-                insere_fprio (f, novo);
-            }
-            else{ // se a fila tiver os z elementos, termina a função
-                melhor = NULL;
-                return melhor;
-            }
-
-            // atualiza melhor
+    // se a fila ainda nao esta cheia ou distancia é menor que a maior distancia atual, insere
+    // a maior distancia agora está no final da fila (ordem crescente)
+    if (f->tam < z){
+        struct melhor_vizinho *novo = cria_melhor(distancia);
+        if (!novo){
+            printf("Falha ao alocar memória\n");
+            exit(1);
+        }
+        novo->n = r;
+        insere_fprio_limit(f, novo, z);
+        // atualiza melhor->distancia: pega o ultimo elemento (maior distancia)
+        if (f->tam == z){
             struct melhor_vizinho *ultimo = f->prim;
             while (ultimo->prox != NULL){
                 ultimo = ultimo->prox;
             }
             melhor->distancia = ultimo->distancia;
-
-            return melhor; // retorna o maior melhor da fila
         }
     }
-
-    struct nodo *prim;
-    struct nodo *seg;
-    if (vetchave[coord] < r->vetchave[coord]){
-        prim = r->fe;
-        seg = r->fd;
-    }
-    else{
-        prim = r->fd;
-        seg = r->fe;
-    }
-
-    struct melhor_vizinho *m = z_vizinhos_prox (prim, (coord + 1) % k, vetchave, k, z, melhor, f);
-    
-    if (distancia < m->distancia){
-        struct melhor_vizinho *novo = cria_melhor (distancia);
+    else if (distancia < melhor->distancia){
+        struct melhor_vizinho *novo = cria_melhor(distancia);
         if (!novo){
-            printf ("Falha ao alocar memória\n");
-            exit (1);
+            printf("Falha ao alocar memória\n");
+            exit(1);
         }
         novo->n = r;
-
-        if (f->tam < z){
-            insere_fprio (f, novo);
-        }
-        else{ // se a fila tiver os z elementos, termina a função
-            melhor = NULL;
-            return melhor;
-        }
-
-        // atualiza melhor
+        insere_fprio_limit(f, novo, z);
+        // atualiza melhor->distancia: pega o ultimo elemento (maior distancia)
         struct melhor_vizinho *ultimo = f->prim;
         while (ultimo->prox != NULL){
             ultimo = ultimo->prox;
@@ -384,11 +371,40 @@ struct melhor_vizinho* z_vizinhos_prox(struct nodo *r, int coord, float *vetchav
         melhor->distancia = ultimo->distancia;
     }
 
-    if (fabs(r->vetchave[coord] - vetchave[coord]) < melhor->distancia){
-        struct melhor_vizinho* n = z_vizinhos_prox (seg, (coord + 1) % k, vetchave, k, z, melhor, f);
-
-        if (n->distancia < m->distancia){
-            return n;
-        }
+    // escolhe lado mais promissor primeiro
+    struct nodo *prim = NULL, *seg = NULL;
+    if (vetchave[coord] < r->vetchave[coord]){
+        prim = r->fe;
+        seg = r->fd;
+    } else {
+        prim = r->fd;
+        seg = r->fe;
     }
+
+    // pesquisa o lado mais proximo
+    z_vizinhos_prox(prim, (coord + 1) % k, vetchave, k, z, melhor, f);
+
+    // verifica se precisa pesquisar o outro lado (poda)
+    float diffcoord = fabsf(r->vetchave[coord] - vetchave[coord]);
+    float limite = (f->tam == z) ? melhor->distancia : INFINITY;
+    if (diffcoord < limite){
+        z_vizinhos_prox(seg, (coord + 1) % k, vetchave, k, z, melhor, f);
+    }
+
+    return melhor;
+}
+
+
+struct fprio* destroi_fprio(struct fprio* f){
+    if (!f) return NULL;
+
+    struct melhor_vizinho *atual = f->prim;
+    while (atual != NULL){
+        struct melhor_vizinho *aux = atual;
+        atual = atual->prox;
+        free(aux);
+    }
+
+    free(f);
+    return NULL;
 }

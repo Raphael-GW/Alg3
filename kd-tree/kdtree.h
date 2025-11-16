@@ -25,11 +25,6 @@ struct fprio{
     int tam;
 };
 
-struct fprio* cria_fprio();
-
-
-struct nodo *cria_nodo ();
-
 struct aluno{
     char* nome;//nome completo
     char* nomeDinf;//nome de usuário nas servidoras do dinf
@@ -39,6 +34,8 @@ struct aluno{
 struct aluno* getAluno();
 
 void imprimirDadosAluno();
+
+struct nodo *cria_nodo ();
 
 //retorna NULO se não foi possível inserir
 struct nodo* inserir(struct tree *t, float *vetchave, int c);
@@ -52,5 +49,9 @@ struct nodo* buscar(struct nodo *r, float *vetchave, int coord, int k);
 void imprimirEmLargura(struct tree *t);
 
 struct melhor_vizinho* cria_melhor(float d);
+
+struct fprio* cria_fprio();
+
+struct fprio* destroi_fprio(struct fprio* f);
 
 #endif

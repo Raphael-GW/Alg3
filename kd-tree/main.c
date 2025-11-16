@@ -76,7 +76,7 @@ int main(){
 				}
 				struct melhor_vizinho *melhor = cria_melhor(1000.0);
 				z_vizinhos_prox(t->raiz, 0, val, t->num_dims, z, melhor, f);
-				printf ("Os %d vizinhos mais proximos sao:\n", z);
+				printf ("Vizinhos mais proximos:\n");
 				struct melhor_vizinho *atual = f->prim;
 				for (size_t i = 0; i < z; i++){
 					if (!atual) break;
@@ -84,15 +84,20 @@ int main(){
 						printf ("%.1f, ", atual->n->vetchave[j]);
 					}
 					printf ("%.1f ", atual->n->vetchave[t->num_dims - 1]);
-					printf ("classe %d), dist = %.4f\n", atual->n->classe, atual->distancia);
+					printf ("(classe %d), dist = %.4f\n", atual->n->classe, atual->distancia);
 					atual = atual->prox;
 				}
+				destroi_fprio(f);
+				free(melhor);
 				break;
 			default:
 				fprintf(stderr,"Opcao Invalida %d", (int)op);
 		}
 		scanf(" %c", &op);
 	}
+
+	destroi_tree(t->raiz);
+	free(t);
 
 	return 0;
 }

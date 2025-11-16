@@ -1,0 +1,7 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/kd-tree'
+gcc -c main.c -Wall 
+cc    -c -o kdtree.o kdtree.c
+gcc -o prova4_20244362 main.o kdtree.o -Wall 
+make.exe: Leaving directory `c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/kd-tree'
+ 
