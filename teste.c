@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 
 int main (){
-    char c = '+';
+    char *c;
+    c = "12345678901";
 
-    if (c == 43) printf ("char é +");
+    printf ("%lld\n", strlen (c));
 
+    
     return 0;
 }
