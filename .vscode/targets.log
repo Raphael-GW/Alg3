@@ -5,7 +5,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Make data base, printed on Wed Feb 25 18:48:50 2026
+# Make data base, printed on Mon Mar 02 13:48:01 2026
 
 # Variables
 
@@ -38,7 +38,7 @@ SHELL := C:/Program Files/Git/bin/sh.exe
 # environment
 WINDIR = C:\WINDOWS
 # environment
-VSCODE_NLS_CONFIG = {"userLocale":"en-us","osLocale":"pt-br","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\rapha\\AppData\\Local\\Programs\\Microsoft VS Code\\c3a26841a8\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
+VSCODE_NLS_CONFIG = {"userLocale":"en-us","osLocale":"pt-br","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\rapha\\AppData\\Local\\Programs\\Microsoft VS Code\\072586267e\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
 # environment
 ONEDRIVE = C:\Users\rapha\OneDrive
 # environment
@@ -72,7 +72,7 @@ ELECTRON_RUN_AS_NODE = 1
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_13096_PIOQWOKGHEISBLAP
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_13976_SJPBYFCAZRMHAPLH
 # environment
 COMPUTERNAME = RAPHAGW
 # environment
@@ -80,7 +80,7 @@ PROGRAMFILES = C:\Program Files (x86)
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
-WT_SESSION = 65f6a9df-2a8c-43d0-85cc-8b4f3d07e33a
+WT_SESSION = 03c321e4-20da-4ba7-bdfe-5a4cc3e8b885
 # environment
 USERNAME = rapha
 # environment
@@ -88,7 +88,7 @@ PUBLIC = C:\Users\Public
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\rapha\AppData\Roaming\Code\CachedData\c3a26841a84f20dfe0850d0a5a9bd01da4f003ea
+VSCODE_CODE_CACHE_PATH = C:\Users\rapha\AppData\Roaming\Code\CachedData\072586267e68ece9a47aa43f8c108e0dcbf44622
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
@@ -110,6 +110,8 @@ MAKE_VERSION := 3.80
 # environment
 NODE_UNC_HOST_ALLOWLIST = wsl.localhost
 # environment
+APPLICATION_INSIGHTS_NO_STATSBEAT = true
+# environment
 PROGRAMFILES(X86) = C:\Program Files (x86)
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
@@ -130,7 +132,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 190 Stepping 0, GenuineIntel
 # environment
 OS = Windows_NT
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\f48552b0-1.109.4-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\f48552b0-1.109.5-main-sock
 # environment
 HOMEPATH = \Users\rapha
 # environment
@@ -184,34 +186,34 @@ LANG = C
 # environment
 PROCESSOR_LEVEL = 6
 # environment
-VSCODE_PID = 13096
+VSCODE_PID = 13976
 # environment
 USERDOMAIN_ROAMINGPROFILE = RAPHAGW
 # variable set hash-table stats:
-# Load=89/1024=9%, Rehash=0, Collisions=9/103=9%
+# Load=90/1024=9%, Rehash=0, Collisions=9/104=9%
 
 # Directories
 
 # C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1761331444): 29 files, no impossibilities.
 # C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1769855254): 150 files, no impossibilities.
-# . (key c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3, mtime 1762289110): 9 files, no impossibilities.
+# . (key c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3, mtime 1772470054): 11 files, no impossibilities.
 # C:\Program Files\dotnet\ (key C:/Program Files/dotnet/, mtime 1765332589): 13 files, no impossibilities.
 # C:\Program Files\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin (key C:/Program Files/Eclipse Adoptium/jdk-25.0.1.8-hotspot/bin, mtime 1761856998): 129 files, no impossibilities.
 # C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
 # C:\Users\rapha\AppData\Local\Programs\Python\Launcher\ (key C:/Users/rapha/AppData/Local/Programs/Python/Launcher/, mtime 1759183797): 5 files, no impossibilities.
 # C:\WINDOWS (key C:/WINDOWS, mtime 1771978924): 111 files, no impossibilities.
 # C:\ProgramData\Oracle\Java\javapath (key C:/ProgramData/Oracle/Java/javapath, mtime 1740574056): 5 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1772056119): 5 files, no impossibilities.
+# C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1772470059): 5 files, no impossibilities.
 # C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1744317022): 5 files, no impossibilities so far.
 # C:\Users\rapha\.dotnet\tools: could not be stat'd.
 # C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\ (key C:/Program Files (x86)/Microsoft Group Policy/Windows Server 2022 August 2021 Update/PolicyDefinitions/, mtime 1757171433): 238 files, no impossibilities.
 # C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts: could not be stat'd.
 # C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1744317047): 13 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1771978924): 2977 files, no impossibilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1772404169): 2977 files, no impossibilities.
 # C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin (key C:/allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0/allegro/bin, mtime 1762468512): 33 files, no impossibilities.
 # C:\Users\rapha\AppData\Local\Microsoft\WindowsApps (key C:/Users/rapha/AppData/Local/Microsoft/WindowsApps, mtime 1772008707): 51 files, no impossibilities.
 
-# 3773 files, no impossibilities in 18 directories.
+# 3775 files, no impossibilities in 18 directories.
 
 # Implicit Rules
 
@@ -266,7 +268,7 @@ GNUmakefile:
 
 # No general (`VPATH' variable) search path.
 
-# Finished Make data base on Wed Feb 25 18:48:50 2026
+# Finished Make data base on Mon Mar 02 13:48:01 2026
 
  
 make.exe: *** No rule to make target `all'.  Stop.

@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NOME 50
-#define MAX_PESSOAS 100
-#define CPF 11
+#define CPF 12
 
 typedef struct pessoa {
-    char *cpf;
-    Pessoa *pai;
-    Pessoa *fd;
-    Pessoa *fe;
+    char cpf [CPF];
+    struct pessoa *pai;
+    struct pessoa *fd;
+    struct pessoa *fe;
 } Pessoa;
 
 typedef struct tree {
@@ -20,8 +18,11 @@ typedef struct tree {
 
 Pessoa *cria_pessoa (char *cpf){
     Pessoa *nova_p = malloc (sizeof (Pessoa));
+    if (!nova_p)
+        return NULL;
 
-    nova_p->cpf = cpf;
+    strncpy (nova_p->cpf, cpf, 11);
+    nova_p->cpf[11] = '\0';
     nova_p->pai = NULL;
     nova_p->fd = NULL;
     nova_p->fe = NULL;
@@ -29,23 +30,13 @@ Pessoa *cria_pessoa (char *cpf){
     return nova_p;
 }
 
-struct Pessoa *busca_pessoa (Tree *t, char *cpf) {
-    if (!t || !cpf)
+Pessoa *busca_pessoa (Tree *t, char *cpf) {
+    if (!t || !t->raiz)
         return NULL;
-
-    // árvore vazia
-    if (t->raiz == NULL)
-        return NULL;
-
-    //cpf inválido
-    if (strlen (cpf) < 11){
-        printf ("CPF %s inválido!!\n", cpf);
-        return NULL;
-    }
 
     Pessoa *nodo = t->raiz;
     
-    while (!nodo) {
+    while (nodo) {
         int result = strcmp (nodo->cpf, cpf);
         
         if (result == 0)
@@ -60,81 +51,154 @@ struct Pessoa *busca_pessoa (Tree *t, char *cpf) {
     return NULL;
 }
 
-void *insere_pessoa (Tree *t, Pessoa *p){
+void insere_pessoa (Tree *t, Pessoa *p){
     if (!t || !p){
-        print ("Input Nulo\n");
+        printf ("Input Nulo\n");
         return ;
     }
     
     //arvore vazia
     if (t->raiz == NULL){
         t->raiz = p;
-        print("Inserido com sucesso!\n");
-        return ;
     }
-
-    Pessoa *pai = t->raiz;
-    Pessoa *aux = t->raiz;
-    while (!aux) {
-        int result = strcmp (aux, p->cpf);
-        
-        if (result == 0){
-            t->tam += 1;
-            print ("Erro: essa pessoa já está cadastrada!\n");
-            return ;
-        }
-        // aux > p
-        else if (result > 0){
+    else {
+        Pessoa *pai = NULL;
+        Pessoa *aux = t->raiz;
+        while (aux) {
+            int result = strcmp (aux->cpf, p->cpf);
             pai = aux;
-            aux = aux->fe;
+
+            if (result == 0){
+                t->tam += 1;
+                printf ("Erro: essa pessoa já está cadastrada!\n");
+                free (p);
+                return ;
+            }
+            // aux > p
+            else if (result > 0){
+                aux = aux->fe;
+            }
+            // aux < p
+            else {
+                aux = aux->fd;
+            }
         }
-        // aux < p
+
+        p->pai = pai;
+        if (strcmp (pai->cpf, p->cpf) > 0)
+            pai->fe = p;
         else
-            pai = aux;
-            aux = aux->fd;
+            pai->fd = p;
     }
-
-    p->pai = pai;
-    if (strcmp (pai->cpf, p->cpf) > 0)
-        pai->fe = p;
-    else
-        pai->fd = p;
-
     printf ("Inserido com sucesso!\n");
     t->tam += 1;
-    return ;
 }
 
-Pessoa *excluir_pessoa (Tree *t, char *cpf){
-    if (!t || !cpf)
-        return NULL;
-    
-    //arvore vazia
-    if (t->raiz == NULL)
-        return NULL;
+// Função auxiliar, coloca v no lugar de u
+void transplante(Tree *t, Pessoa *u, Pessoa *v) {
+    if (u->pai == NULL) 
+        t->raiz = v;
+    else if (u == u->pai->fe) 
+        u->pai->fe = v;
+    else 
+        u->pai->fd = v;
+    if (v != NULL) 
+        v->pai = u->pai;
+}
 
-    //arvore com 1 pessoa
-    if (t->tam == 1){
-        int result = strcmp (t->raiz->cpf, cpf);
+Pessoa* minimo(Pessoa* n) {
+    while (n->fe != NULL) 
+        n = n->fe;
+    return n;
+}
 
-        if (result == 0){
-            Pessoa *aux = t->raiz;
-            free (t->raiz);
-            t->tam = 0;
-            return aux;
+int excluir_pessoa(Tree *t, char *cpf) {
+    Pessoa *p = busca_pessoa(t, cpf);
+    if (!p) return 1;
+
+    if (p->fe == NULL) {
+        transplante(t, p, p->fd);
+    } else if (p->fd == NULL) {
+        transplante(t, p, p->fe);
+    } else {
+        Pessoa *aux = minimo(p->fd);
+        if (aux->pai != p) {
+            transplante(t, aux, aux->fd);
+            aux->fd = p->fd;
+            aux->fd->pai = aux;
         }
-        else
-            return NULL;
+        transplante(t, p, aux);
+        aux->fe = p->fe;
+        aux->fe->pai = aux;
     }
+    free(p);
+    t->tam--;
+    return 0;
+}
 
-    Pessoa *nodo = busca_pessoa (t, cpf);
+void destroi_arvore (Pessoa *p){
+    if (!p)
+        return ;
+    destroi_arvore (p->fe);
+    destroi_arvore (p->fd);
+    free (p);
+}
 
-    // nodo não encontrado
-    if (!nodo)
-        return NULL;
+int main () {
+    Tree *t = malloc (sizeof (Tree));
+    if (!t)
+        return 1;
     
-    //nodo é folha
-    if (nodo->fd == NULL && nodo->fe == NULL){
-        Pessoa *au
+    t->tam = 0;
+    t->raiz = NULL;
+
+    int input = 0;
+    char cpf [CPF];
+    printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - sair): ");
+    scanf ("%d", &input);
+
+    while (input != 4) {
+        printf ("Digite o cpf (somente numeros): ");
+        scanf ("%s", cpf);
+        switch (input){
+            case 1:
+                Pessoa *novo = cria_pessoa (cpf);
+                if (!novo){
+                    printf ("Erro ao criar pessoa\n");
+                    exit (1);
+                }
+                insere_pessoa (t, novo);
+                break;
+
+            case 2:
+                Pessoa *p = busca_pessoa (t, cpf);
+                if (p)
+                    printf ("Pessoa encontrada!\n");
+                else
+                    printf ("Pessoa não encontrada\n");
+                break;
+
+            case 3:
+                int e = excluir_pessoa (t, cpf);
+                if (e)
+                    printf ("Pessoa excluída com sucesso!\n");
+                else
+                    printf ("Pessoa não encontrada\n");
+                break;
+
+            case 4:
+                break;
+
+            default:
+                printf ("Opção inválida!\n");
+                break;
+        }
+        printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - sair): ");
+        scanf ("%d", &input);
     }
+
+    destroi_arvore (t->raiz);
+    free (t);
+    return 0;
+
 }
