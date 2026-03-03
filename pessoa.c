@@ -69,7 +69,6 @@ void insere_pessoa (Tree *t, Pessoa *p){
             pai = aux;
 
             if (result == 0){
-                t->tam += 1;
                 printf ("Erro: essa pessoa já está cadastrada!\n");
                 free (p);
                 return ;
@@ -144,6 +143,24 @@ void destroi_arvore (Pessoa *p){
     free (p);
 }
 
+void pre_ordem (Pessoa *r){
+    if (!r)
+        return ;
+    
+    printf ("CPF: %s | ", r->cpf);
+    pre_ordem (r->fe);
+    pre_ordem (r->fd);
+}
+
+void imprime_ordem (Pessoa *r){
+    if (!r)
+        return ;
+    
+    imprime_ordem (r->fe);
+    printf ("CPF: %s\n", r->cpf);
+    imprime_ordem (r->fd);
+}
+
 int main () {
     Tree *t = malloc (sizeof (Tree));
     if (!t)
@@ -154,14 +171,17 @@ int main () {
 
     int input = 0;
     char cpf [CPF];
-    printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - sair): ");
+    printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - imprimir | 5 - sair): ");
     scanf ("%d", &input);
 
-    while (input != 4) {
-        printf ("Digite o cpf (somente numeros): ");
-        scanf ("%s", cpf);
+    while (input != 5) {
+        if (input >= 1 && input <= 3){
+            printf ("Digite o cpf (somente numeros): ");
+            scanf ("%s", cpf);
+        }
+
         switch (input){
-            case 1:
+            case 1:{
                 Pessoa *novo = cria_pessoa (cpf);
                 if (!novo){
                     printf ("Erro ao criar pessoa\n");
@@ -169,6 +189,7 @@ int main () {
                 }
                 insere_pessoa (t, novo);
                 break;
+            }
 
             case 2:
                 Pessoa *p = busca_pessoa (t, cpf);
@@ -180,20 +201,24 @@ int main () {
 
             case 3:
                 int e = excluir_pessoa (t, cpf);
-                if (e)
+                if (e == 0)
                     printf ("Pessoa excluída com sucesso!\n");
                 else
                     printf ("Pessoa não encontrada\n");
                 break;
 
             case 4:
+                imprime_ordem (t->raiz);
+                break;
+            
+            case 5:
                 break;
 
             default:
                 printf ("Opção inválida!\n");
                 break;
         }
-        printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - sair): ");
+        printf ("Digite uma opcao (1 - inserir | 2 - buscar | 3 - excluir | 4 - imprimir |5 - sair): ");
         scanf ("%d", &input);
     }
 
