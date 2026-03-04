@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 #define TAM_EXP 100
@@ -49,7 +50,7 @@ void insere_nodo (struct arvore *tree, char *token){
 
     while (aux != NULL){
         pai = aux;
-        if (aux->key < 48) aux = aux->fe;
+        if ((int)aux->key < 48) aux = aux->fe;
         else aux = aux->fd;
     }
     novo->pai = pai;
@@ -67,8 +68,8 @@ void imprime_preordem (struct nodo *nodo){
     }
 }
 
-struct arvore *destroi_arvore (struct nodo *nodo){
-    if (!nodo) return NULL;
+void destroi_arvore (struct nodo *nodo){
+    if (!nodo) return ;
     if (nodo){
         destroi_arvore (nodo->fe);
         destroi_arvore (nodo->fd);
@@ -76,11 +77,44 @@ struct arvore *destroi_arvore (struct nodo *nodo){
     }
 }
 
+float resolve_esquacao (struct nodo *n){
+    if (!n)
+        return 0;
+
+    // Se for uma folha retorna o número
+    if (isdigit(n->key[0])){
+        return atof(n->key);
+    }
+
+    float num1 = resolve_esquacao (n->fe);
+    float num2 = resolve_esquacao (n->fd);
+
+    switch (n->key[0]){
+        case '*':
+            printf ("multiplica %.2f * %.2f\n", num1, num2);
+            return num1 * num2;
+
+        case '/':
+            if (num2 != 0)
+                return num1 / num2;
+            else
+                return 0;
+
+        case '+':
+            return num1 + num2;
+
+        case '-':
+            printf ("subtrai %.2f - %2.f\n", num1, num2);
+            return num1 - num2;
+        default:
+            return 0;
+    }
+}
+
 int main (){
     char expressao[TAM_EXP + 1];
     const char *delim = " ";
     char *token;
-    //char *operacoes = '* + / -';
     struct arvore *tree = malloc (sizeof (struct arvore));
 
     if (fgets(expressao, TAM_EXP, stdin) != NULL) {
@@ -102,6 +136,8 @@ int main (){
     imprime_preordem (tree->raiz);
     printf ("\n");
     printf ("Quantidades de nodos: %d\n", tree->tam);
+
+    printf ("Resultado: %.2f\n", resolve_esquacao (tree->raiz));
 
     destroi_arvore (tree->raiz);
     free (tree);
