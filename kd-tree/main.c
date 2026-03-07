@@ -33,7 +33,7 @@ int main(){
 	float val[t->num_dims];
 	
 
-	printf ("Insere:\n");
+	printf ("Insira os pontos.\n");
 	for (size_t i = 0; i < n; i++){
 		for (size_t j = 0; j < t->num_dims; j++){
 			scanf("%e", &val[j]);

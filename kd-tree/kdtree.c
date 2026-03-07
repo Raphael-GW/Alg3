@@ -185,7 +185,10 @@ struct obj *desenfileirar (struct fila *f){
     struct obj *aux = f->prim;
 
     if (f->prim->prox) f->prim = f->prim->prox;
-    else f->prim = NULL;
+    else {
+        f->prim = NULL;
+        f->last = NULL;
+    }
 
     f->tam -= 1;
 
@@ -193,7 +196,7 @@ struct obj *desenfileirar (struct fila *f){
 }
 
 void imprimirEmLargura(struct tree* t){
-    if (!t->raiz || !t->raiz) return ; //árvore vazia
+    if (!t || !t->raiz) return ; // árvore vazia ou ponteiro nulo
     int nivel_atual = 0;
 
     struct fila *f = cria_fila ();
@@ -212,35 +215,20 @@ void imprimirEmLargura(struct tree* t){
     printf ("[%d]   ", nivel_atual);
     while (f->tam > 0){
         struct obj *aux = desenfileirar (f);
+        if (!aux) break;
+
         if (aux->nivel > nivel_atual){ // se nivel do nodo for maior vai para linha de baixo
             printf ("\n");
             nivel_atual = aux->nivel;
             printf ("[%d]   ", nivel_atual);
         }
 
-        if (aux->n == t->raiz){
-            printf ("[");
-            for (size_t j = 0; j < t->num_dims; j++){
-			    printf(" %.1f", novo->n->vetchave[j]);
-		    }
-            printf ("] ");
+        printf ("[");
+        for (size_t j = 0; j < t->num_dims; j++){
+            printf(" %.1f", aux->n->vetchave[j]);
         }
-
-        if (aux->n == aux->n->pai->fe) {
-            printf ("[");
-            for (size_t j = 0; j < t->num_dims; j++){
-			    printf(" %.1f", novo->n->vetchave[j]);
-		    }
-            printf ("] ");
-        }
-
-        if (aux->n == aux->n->pai->fd) {
-            printf ("[");
-            for (size_t j = 0; j < t->num_dims; j++){
-			    printf(" %.1f", novo->n->vetchave[j]);
-		    }
-            printf ("] ");
-        }
+        printf ("] ");
+        
 
         if (aux->n->fe){
             struct obj *fe = cria_obj (aux->n->fe, aux->nivel + 1);
@@ -337,7 +325,6 @@ struct melhor_vizinho* z_vizinhos_prox(struct nodo *r, int coord, float *vetchav
     float distancia = sqrtf(soma);
 
     // se a fila ainda nao esta cheia ou distancia é menor que a maior distancia atual, insere
-    // a maior distancia agora está no final da fila (ordem crescente)
     if (f->tam < z){
         struct melhor_vizinho *novo = cria_melhor(distancia);
         if (!novo){
@@ -386,7 +373,8 @@ struct melhor_vizinho* z_vizinhos_prox(struct nodo *r, int coord, float *vetchav
 
     // verifica se precisa pesquisar o outro lado (poda)
     float diffcoord = fabsf(r->vetchave[coord] - vetchave[coord]);
-    float limite = (f->tam == z) ? melhor->distancia : INFINITY;
+    float limite = melhor->distancia;
+
     if (diffcoord < limite){
         z_vizinhos_prox(seg, (coord + 1) % k, vetchave, k, z, melhor, f);
     }

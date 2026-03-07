@@ -4,7 +4,7 @@ nomePrograma=prova4_20244362
 all: $(nomePrograma)
 
 $(nomePrograma): main.o kdtree.o
-	gcc -o $(nomePrograma) main.o kdtree.o $(parametrosCompilacao)
+	gcc -o $(nomePrograma) main.o kdtree.o $(parametrosCompilacao) -lm
 
 main.o: main.c
 	gcc -c main.c $(parametrosCompilacao)
