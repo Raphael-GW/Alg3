@@ -6,14 +6,14 @@
 
 struct nodo {
     int32_t n;
-    int32_t *chaves;
-    struct arvoreB **filhos;
+    struct nodo *chaves;
+    struct nodo **filhos;
     bool folha;
 };
 
 struct arvoreB {
     struct nodo* raiz;
-    int
+    int32_t t;
 };
 
 struct arvoreB* criarArvoreB(int32_t t_arvore);
