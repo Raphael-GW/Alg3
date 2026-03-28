@@ -6,7 +6,7 @@
 
 struct nodo {
     int32_t n;
-    struct nodo *chaves;
+    int32_t *chaves;
     struct nodo **filhos;
     bool folha;
 };
