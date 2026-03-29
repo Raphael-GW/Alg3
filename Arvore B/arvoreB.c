@@ -3,6 +3,35 @@
 
 #include "arvoreB.h"
 
+struct item {
+    struct nodo* n;
+    int32_t f_idx; // index do filho
+};
+
+struct pilha {
+    struct item** items;
+    int topo;
+};
+
+struct pilha* cria_pilha (){
+    struct pilha* p = malloc (sizeof (struct pilha));
+    if (!p)
+        return NULL;
+
+    p->items = NULL;
+    p->topo = 0;
+    return p;
+}
+
+struct item* cria_item (struct nodo* n, int32_t idx){
+    struct item* i = malloc (sizeof (struct item));
+    if (!i)
+        return NULL;
+
+    i->f_idx = idx;
+    i->n = n;
+    return i;
+} 
 
 struct arvoreB* criarArvoreB(int32_t t_arvore){
     struct arvoreB* arvore = malloc (sizeof (struct arvoreB));
@@ -84,7 +113,7 @@ void insererNaoCheio (struct nodo* x, int32_t k){
 
     int32_t idx = x->n;
     if (x->folha){
-        while (idx >= 1 && k < x->chaves[idx]){
+        while (idx >= 0 && k < x->chaves[idx]){
             x->chaves[idx+1] = x->chaves[idx];
             idx -= 1;
         }
@@ -123,4 +152,54 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
         return ;
     }
     inserirNaoCheio (r, chave);
+}
+
+struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEncontrado){
+    if (!arvore || !idxEncontrado){
+        idxEncontrado = 1;
+        return NULL;
+    }
+
+    int32_t idx = 0;
+    struct nodo* aux = arvore->raiz;
+    while (aux->chaves[idx] != chave && (!aux->folha || idx <= aux->n)){
+        if (aux->chaves[idx] < chave)
+            idx += 1;
+        else if (!aux->folha){
+            aux = aux->filhos[idx];
+            idx = 0;
+        }
+        else{
+            idxEncontrado = -1;
+            return NULL;
+        }
+    }
+    idxEncontrado = idx;
+    return aux;
+}
+
+void empilha (struct pilha* p, struct nodo* n, int32_t idx){
+    if (!p || !n)
+        return ;
+
+    p->topo += 1;
+    struct item* i = cria_item (n, idx);
+    p->items[p->topo] = i;
+}
+
+struct item* desempilha (struct pilha* p){
+    if (!p)
+        return NULL;
+
+    struct item* i = p->items[p->topo];
+    p->topo -= 1;
+    free (p->items[p->topo]);
+    return i;
+}
+
+void imprimirEmOrdem(struct arvoreB* arvore){
+    if (!arvore)
+        return ;
+
+    struct pilha
 }
