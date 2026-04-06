@@ -3,35 +3,6 @@
 
 #include "arvoreB.h"
 
-struct item {
-    struct nodo* n;
-    int32_t f_idx; // index do filho
-};
-
-struct pilha {
-    struct item** items;
-    int topo;
-};
-
-struct pilha* cria_pilha (){
-    struct pilha* p = malloc (sizeof (struct pilha));
-    if (!p)
-        return NULL;
-
-    p->items = NULL;
-    p->topo = 0;
-    return p;
-}
-
-struct item* cria_item (struct nodo* n, int32_t idx){
-    struct item* i = malloc (sizeof (struct item));
-    if (!i)
-        return NULL;
-
-    i->f_idx = idx;
-    i->n = n;
-    return i;
-} 
 
 struct arvoreB* criarArvoreB(int32_t t_arvore){
     struct arvoreB* arvore = malloc (sizeof (struct arvoreB));
@@ -39,7 +10,7 @@ struct arvoreB* criarArvoreB(int32_t t_arvore){
         return NULL;
 
     arvore->raiz = NULL;
-    arvore->t = t_arvore;
+    arvore->t_arvore = t_arvore;
 
     return arvore;
 }
@@ -49,7 +20,7 @@ struct nodo* criarnodo(int32_t t_arvore){
     if (!arvore)
         return NULL;
 
-    arvore->n = 0;
+    arvore->nchave = 0;
     arvore->chaves = malloc (sizeof(int32_t) * (2*t_arvore - 1));
     arvore->filhos = malloc(sizeof (int32_t) * 2*t_arvore);
     arvore->folha = true;
@@ -65,36 +36,36 @@ void divide_filho (struct nodo* x, int32_t idx){
     struct nodo* z = criarnodo (t_arvore);
     struct nodo* y = x->filhos[idx];
     z->folha = y->folha;
-    z->n = t_arvore - 1;
+    z->nchave = t_arvore - 1;
 
-    for (int i = 0; i < t_arvore - 1; i++){
+    for (int32_t i = 0; i < t_arvore - 1; i++)
         z->chaves[i] = y->chaves[i+t_arvore];
-    }
+    
 
     if (!y->folha){
-        for (int i = 0; i < t_arvore; i++){
+        for (int32_t i = 0; i < t_arvore; i++){
             z->filhos[i] = y->filhos[i];
         }
     }
 
-    y->n = t_arvore - 1;
-    for (int i = x->n + 1; i < idx + 1; i--){
+    y->nchave = t_arvore - 1;
+    for (int32_t i = x->nchave + 1; i < idx + 1; i--)
         x->filhos[i+1] = x->filhos[i];
-    }
+    
 
     x->filhos[idx+1] = z;
-    for (int i = x->n; i < idx; i--){
+    for (int32_t i = x->nchave; i < idx; i--)
         x->chaves[i+1] = x->chaves[i];
-    }
+    
     x->chaves[idx] = y->chaves[t_arvore];
-    x->n += 1;
+    x->nchave += 1;
 }
 
 struct nodo* dividir_raiz (struct arvoreB* arvore){
     if (!arvore)
         return NULL;
 
-    struct nodo* s = criarnodo (arvore->t);
+    struct nodo* s = criarnodo (arvore->t_arvore);
     if (!s)
         return NULL;
 
@@ -111,28 +82,28 @@ void insererNaoCheio (struct nodo* x, int32_t k){
     if (!x)
         return ;
 
-    int32_t idx = x->n;
+    int32_t idx = x->nchave;
     if (x->folha){
         while (idx >= 0 && k < x->chaves[idx]){
             x->chaves[idx+1] = x->chaves[idx];
             idx -= 1;
         }
         x->chaves[idx+1] = k;
-        x->n += 1;
+        x->nchave += 1;
         return ;
     }
     
-    while (idx >= 1 && k < x->chaves[idx]){
+    while (idx >= 1 && k < x->chaves[idx])
         idx -= 1;
-    }
+    
 
     idx += 1;
     int32_t t_arvore = sizeof (x->filhos) / (sizeof(int32_t) * 2);
-    if (x->filhos[idx]->n == 2 * t_arvore - 1){
+    if (x->filhos[idx]->nchave == 2 * t_arvore - 1){
         divide_filho (x, idx);
-        if (k > x->chaves[idx]){
+        if (k > x->chaves[idx])
             idx += 1;
-        }
+        
     }
 
     insererNaoCheio (x->filhos[idx], k);
@@ -143,7 +114,7 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
         return ;
 
     struct nodo* r = arvore->raiz;
-    if (r->n == 2 * arvore->t - 1){
+    if (r->nchave == 2 * arvore->t_arvore - 1){
         struct nodo* s = dividir_raiz (arvore);
         if (!s)
             return ;
@@ -156,13 +127,13 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
 
 struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEncontrado){
     if (!arvore || !idxEncontrado){
-        idxEncontrado = 1;
+        idxEncontrado = -1;
         return NULL;
     }
 
     int32_t idx = 0;
     struct nodo* aux = arvore->raiz;
-    while (aux->chaves[idx] != chave && (!aux->folha || idx <= aux->n)){
+    while (aux->chaves[idx] != chave && (!aux->folha || idx <= aux->nchave)){
         if (aux->chaves[idx] < chave)
             idx += 1;
         else if (!aux->folha){
@@ -174,32 +145,130 @@ struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEn
             return NULL;
         }
     }
-    idxEncontrado = idx;
+    *idxEncontrado = idx;
     return aux;
 }
+
+// ---------- Estrutura auxiliar para impressão em ordem -------------
+struct item {
+    struct nodo* n;
+    int32_t f_idx; // index do filho
+};
+
+struct pilha {
+    struct item** items;
+    int32_t topo;
+    int32_t tam;
+};
+
+//cria pilha vazia
+struct pilha* cria_pilha (){
+    struct pilha* p = malloc (sizeof (struct pilha));
+    if (!p)
+        return NULL;
+
+    p->items = NULL;
+    p->topo = 0;
+    p->tam = 0;
+    return p;
+}
+
+// cria o item da pilha com o nodo e o índice do filho
+struct item* cria_item (struct nodo* n, int32_t idx){
+    struct item* i = malloc (sizeof (struct item));
+    if (!i)
+        return NULL;
+
+    i->f_idx = idx;
+    i->n = n;
+    return i;
+} 
 
 void empilha (struct pilha* p, struct nodo* n, int32_t idx){
     if (!p || !n)
         return ;
 
-    p->topo += 1;
     struct item* i = cria_item (n, idx);
     p->items[p->topo] = i;
+    p->topo += 1;
 }
 
 struct item* desempilha (struct pilha* p){
-    if (!p)
+    if (!p || p->topo == 0)
         return NULL;
 
-    struct item* i = p->items[p->topo];
     p->topo -= 1;
-    free (p->items[p->topo]);
+    struct item* i = p->items[p->topo];
+
     return i;
 }
+// ------------------------------------------------------------
+
 
 void imprimirEmOrdem(struct arvoreB* arvore){
     if (!arvore)
         return ;
 
-    struct pilha
+    struct pilha* p = cria_pilha ();
+    if (!p)
+        return ;
+
+    empilha (p, arvore->raiz, 0);
+
+    printf ("Em ordem: ");
+
+    while (p->topo > 0){
+        struct item* i = desempilha (p);
+        struct nodo* n = i->n;
+        int32_t idx = i->f_idx;
+
+        if (n->folha){
+            for (int32_t i = 0; i < n->nchave; i++)
+                printf ("%d ", n->chaves[i]);
+            
+            continue;
+        }
+
+        if (idx > 0 && (idx - 1) < n->nchave)
+            printf ("%d ", n->chaves[idx - 1]);
+        
+
+        if (idx <= n->nchave){
+            empilha (p, n, idx + 1);
+            empilha (p, n->filhos[idx], 0);
+        }
+    }
+    printf ("\n");
+
+    for (int32_t i = 0; i < p->tam; i++)
+        free (p->items[i]);
+    
+    free (p);
+}
+
+
+// ----------- Estrutura auxiliar para impressão em largura -----------
+
+struct nodo_fila {
+    struct nodo* n;
+    struct nodo* prox;
+};
+
+struct fila {
+    struct nodo_fila* prim;
+    struct nodo_fila* ult;
+};
+
+void enfileirar (struct fila* f, struct nodo* n){
+    if (!f || !n)
+        return ;
+
+        
+}
+
+void imprimirArvoreB(struct arvoreB* arvore){
+    if (!arvore)
+        return ;
+
+    
 }
