@@ -158,7 +158,6 @@ struct item {
 struct pilha {
     struct item** items;
     int32_t topo;
-    int32_t tam;
 };
 
 //cria pilha vazia
@@ -169,7 +168,6 @@ struct pilha* cria_pilha (){
 
     p->items = NULL;
     p->topo = 0;
-    p->tam = 0;
     return p;
 }
 
@@ -226,7 +224,6 @@ void imprimirEmOrdem(struct arvoreB* arvore){
             for (int32_t i = 0; i < n->nchave; i++)
                 printf ("%d ", n->chaves[i]);
             
-            continue;
         }
 
         if (idx > 0 && (idx - 1) < n->nchave)
@@ -237,11 +234,9 @@ void imprimirEmOrdem(struct arvoreB* arvore){
             empilha (p, n, idx + 1);
             empilha (p, n->filhos[idx], 0);
         }
+        free (i);
     }
     printf ("\n");
-
-    for (int32_t i = 0; i < p->tam; i++)
-        free (p->items[i]);
     
     free (p);
 }
@@ -263,10 +258,95 @@ void enfileirar (struct fila* f, struct nodo* n){
     if (!f || !n)
         return ;
 
-        
+    struct nodo_fila* nf = malloc (sizeof(struct nodo_fila));
+    if (!nf)
+        return ;
+    nf->n = n;
+    nf->prox = NULL;
+    
+    //fila vazia
+    if (!f->prim){
+        f->prim = nf;
+        f->ult = nf;
+    }
+    else{
+        f->ult->prox = nf;
+        f->ult = nf;
+    }
 }
 
+struct nodo* desinfileirar (struct fila* f){
+    if (!f || !f->prim)
+        return NULL;
+
+    struct nodo_fila* nf = f->prim;
+    struct nodo* n = nf->n;
+
+    f->prim = nf->prox;
+    free (nf);
+
+    return n;
+}
+
+// --------------------------------
+
 void imprimirArvoreB(struct arvoreB* arvore){
+    if (!arvore)
+        return ;
+
+    struct fila* f = malloc (sizeof(struct fila));
+    if (!f)
+        return ;
+    
+    f->prim = NULL;
+    f->ult = NULL;
+    enfileirar (f, arvore->raiz);
+
+    while (f->prim){
+        int nivel = 0;
+        int n_no_nivel = 0; // quantidade de nodos no nivel
+        struct nodo_fila* temp = f->prim;
+        while (temp){
+            n_no_nivel++;
+            temp = temp->prox;
+        }
+
+        printf ("----//----\n");
+        printf ("Nivel %d\n", nivel);
+        printf ("----//----\n");
+
+        for (int32_t i = 0; i < n_no_nivel; i++){
+            struct nodo* n = desinfileirar (f);
+            if (!n)
+                return ;
+            
+            if (!n->folha){
+                printf ("I ");
+                printf ("(n:%d)", n->nchave);
+                printf ("[");
+                for (int32_t j = 0; j < n->nchave; j++){
+                    printf (" %d", n->chaves[j]);
+                    enfileirar (f, n->filhos[j]);
+                }
+                enfileirar (f, n->filhos[n->nchave]);
+                printf ("]  ");
+            }
+            else{   
+                printf ("F ");
+                printf ("(n:%d)", n->nchave);
+                printf ("[");
+                for (int32_t j = 0; j < n->nchave; j++)
+                    printf (" %d", n->chaves[j]);
+                    
+                printf ("]  ");
+            }
+        }
+        nivel += 1;
+        printf("\n");
+    }
+}
+
+void deletarArvore (struct arvoreB* arvore){
     if (!arvore)
         return ;
 
