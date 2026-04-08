@@ -96,8 +96,8 @@ void insererNaoCheio (struct nodo* x, int32_t k){
     while (idx >= 1 && k < x->chaves[idx])
         idx -= 1;
     
-
     idx += 1;
+
     int32_t t_arvore = sizeof (x->filhos) / (sizeof(int32_t) * 2);
     if (x->filhos[idx]->nchave == 2 * t_arvore - 1){
         divide_filho (x, idx);
@@ -347,7 +347,7 @@ void imprimirArvoreB(struct arvoreB* arvore){
 }
 
 void deletarArvore (struct arvoreB* arvore){
-    if (!arvore)
+    if (!arvore || !arvore->raiz)
         return ;
 
     
