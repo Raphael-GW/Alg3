@@ -93,7 +93,7 @@ void insererNaoCheio (struct nodo* x, int32_t k){
         return ;
     }
     
-    while (idx >= 1 && k < x->chaves[idx])
+    while (idx >= 0 && k < x->chaves[idx])
         idx -= 1;
     
     idx += 1;
