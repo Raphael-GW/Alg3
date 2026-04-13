@@ -1,374 +1,196 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 3.80
-# Copyright (C) 2002  Free Software Foundation, Inc.
-# This is free software; see the source for copying conditions.
-# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
-
-# Make data base, printed on Sun Mar 29 15:55:34 2026
 
 # Variables
 
+# environment
+C:
+# environment
+C
+# environment
+C:\Users\raphael.gaias
+# environment
+C:\Users\raphael.gaias\AppData\Local
+# environment
+extensionHost
+# environment
+C:\Users\raphael.gaias\AppData\Local\Programs\Microsoft VS Code
+# environment
+C:\WINDOWS
+# environment
+6
+# environment
+C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+# default
+make.exe
+# environment
+1
+# environment
+TACLA.CORP
+# environment
+true
 # automatic
-<D = $(patsubst %/,%,$(dir $<))
+$(patsubst %/,%,$(patsubst %\,% 
+,$(dir $@)))
+# environment
+\\.\pipe\crashpad_6968_DHQGFHPAUHLUXMAV
+# environment
+file
+# environment
+true
+# default
+
 # automatic
-?F = $(notdir $?)
+$(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# automatic
+$(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# automatic
+$(notdir $%)
 # environment
-WSLENV = WT_SESSION:WT_PROFILE_ID:
+C:\Users\raphael.gaias\AppData\Roaming\Code\CachedData\41dd792b5e652393e7787322889ed5fdc58bd75b
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
+C
+# default
+
 # environment
-VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
+C:\Users\RAPHAE~1.GAI\AppData\Local\Temp
+# default
+
 # makefile
-MAKEFLAGS = Rrqp
-# automatic
-?D = $(patsubst %/,%,$(dir $?))
+pqrR
+# makefile
+prova1_20244362
 # environment
-COPILOT_OTEL_ENABLED = true
-# automatic
-@D = $(patsubst %/,%,$(dir $@))
+C:\Users\raphael.gaias\OneDrive
+# makefile
+c:/Users/raphael.gaias/Documents/Alg3/Arvore B
 # environment
-HOMEDRIVE = C:
+
 # automatic
-@F = $(notdir $@)
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
+$(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+C:\Program Files
+# environment
+-pqrR
 # default
-CURDIR := c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Arvore B
+-c
+# environment
+C:\Program Files\Common Files
+# environment
+\\.\nul
+# automatic
+$(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# makefile
+makefile
+# automatic
+$(notdir $@)
+# environment
+6968
+# automatic
+$(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# automatic
+$(notdir $*)
+# makefile
+-std=c23 -Wall
+# automatic
+$(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# environment
+{"userLocale":"en-us","osLocale":"pt-br","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\raphael.gaias\\AppData\\Local\\Programs\\Microsoft VS Code\\41dd792b5e\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
 # default
-SHELL := C:/Program Files/Git/bin/sh.exe
+x86_64-w64-mingw32
 # environment
-WINDIR = C:\WINDOWS
-# environment
-VSCODE_NLS_CONFIG = {"userLocale":"en-us","osLocale":"pt-br","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\rapha\\AppData\\Local\\Programs\\Microsoft VS Code\\cfbea10c5f\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
-# environment
-COPILOT_OTEL_EXPORTER_TYPE = file
-# environment
-PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
-# makefile (from `makefile', line 1)
-MAKEFILE_LIST :=  makefile
-# environment
-TMP = C:\Users\rapha\AppData\Local\Temp
-# environment
-PROGRAMW6432 = C:\Program Files
-# environment
-PROGRAMDATA = C:\ProgramData
-# environment
-VSCODE_CWD = C:\Users\rapha\OneDrive - ufpr.br\�rea de Trabalho\Alg3\Arvore B
-# environment
-PATH = C:\Program Files\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts;C:\Users\rapha\AppData\Local\Programs\Python\Launcher\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts\git-filter-repo.exe;C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts;C:\Users\rapha\AppData\Local\Python\bin
-# environment
-COMMONPROGRAMW6432 = C:\Program Files\Common Files
-# environment
-ZES_ENABLE_SYSMAN = 1
-# environment
-PROCESSOR_ARCHITECTURE = x86
-# environment
-ONEDRIVE = C:\Users\rapha\OneDrive
-# environment
-USERPROFILE = C:\Users\rapha
-# environment
-ALLUSERSPROFILE = C:\ProgramData
-# environment
-NUMBER_OF_PROCESSORS = 8
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# automatic
-%F = $(notdir $%)
-# environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_12940_OZFWMLGKPBDPXKDV
-# environment
-OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT = true
-# makefile (from `makefile', line 1)
-parametrosCompilacao = -std=c23 -Wall
-# environment
-COMPUTERNAME = RAPHAGW
-# environment
-PROGRAMFILES = C:\Program Files (x86)
-# environment
-DRIVERDATA = C:\Windows\System32\Drivers\DriverData
-# environment
-WT_SESSION = 94577106-5b2a-461f-9a52-054956547005
-# environment
-USERNAME = rapha
-# environment
-PUBLIC = C:\Users\Public
-# environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = C:\Users\rapha\AppData\Roaming\Code\CachedData\cfbea10c5ffb233ea9177d34726e6056e89913dc
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# environment
-COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
-# environment
-LOGONSERVER = \\RAPHAGW
-# environment
-VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# environment
-USERDOMAIN = RAPHAGW
+C:\ProgramData
 # default
-MAKE = $(MAKE_COMMAND)
+sh.exe
+# environment
+\Users\raphael.gaias
 # default
-MAKECMDGOALS := all
+all
 # environment
-VSCODE_ESM_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+C:\Windows\System32\Drivers\DriverData
+# environment
+C:\WINDOWS\system32\cmd.exe
+# environment
+C:\WINDOWS
+# environment
+0
 # default
-MAKE_VERSION := 3.80
+$(MAKE_COMMAND)
 # environment
-COPILOT_OTEL_FILE_EXPORTER_PATH = NUL
+C:\Users\raphael.gaias\AppData\Local\Programs\Microsoft VS Code;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\msys64\ucrt64\bin\;C:\Users\raphael.gaias\AppData\Local\Programs\Python\Python313\;C:\Users\raphael.gaias\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\raphael.gaias\AppData\Local\Programs\Python\Launcher\;C:\Users\raphael.gaias\.local\bin;C:\Users\raphael.gaias\AppData\Local\Microsoft\WindowsApps;C:\Users\raphael.gaias\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\raphael.gaias\AppData\Roaming\npm;
 # environment
-NODE_UNC_HOST_ALLOWLIST = wsl.localhost
-# environment
-APPLICATION_INSIGHTS_NO_STATSBEAT = true
-# makefile (from `makefile', line 2)
-nomePrograma = prova1_20244362
-# environment
-PROGRAMFILES(X86) = C:\Program Files (x86)
-# automatic
-%D = $(patsubst %/,%,$(dir $%))
-# environment
-LOCALAPPDATA = C:\Users\rapha\AppData\Local
-# environment
-PSMODULEPATH = C:\Users\rapha\OneDrive - ufpr.br\Documentos\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PCT-TI-RAPHAEL
 # default
-MAKE_COMMAND := make.exe
+
+# automatic
+$(notdir $^)
 # environment
-PROCESSOR_ARCHITEW6432 = AMD64
+$P$G
+# environment
+true
+# environment
+\\DC-TACLA-CORP
+# environment
+raphael.gaias
+# environment
+C:\Program Files\Common Files
+# automatic
+$(notdir $?)
+# environment
+C:\Program Files
+# environment
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+# automatic
+$(notdir $+)
+# environment
+TACLA
+# 'override' directive
+
+# environment
+Windows_NT
+# makefile
+all
 # default
-.VARIABLES := 
-# automatic
-*F = $(notdir $*)
+4.4.1
 # environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 190 Stepping 0, GenuineIntel
+C:\Program Files (x86)
 # environment
-OS = Windows_NT
+TACLA
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\f48552b0-1.113.0-main-sock
+8
 # environment
-HOMEPATH = \Users\rapha
+C:\Users\Public
 # environment
-COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+C:\Users\raphael.gaias\AppData\Roaming
 # environment
-PROMPT = $P$G
+C:
 # environment
-MFLAGS = -Rrqp
-# automatic
-*D = $(patsubst %/,%,$(dir $*))
+true
 # environment
-SYSTEMROOT = C:\WINDOWS
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
+AMD64
 # environment
-VSCODE_L10N_BUNDLE_LOCATION = 
-# automatic
-+F = $(notdir $+)
+1
 # environment
-APPDATA = C:\Users\rapha\AppData\Roaming
+C:\Program Files (x86)\Common Files
 # environment
-Path = C:\Program Files\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\;C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts;C:\Users\rapha\AppData\Local\Programs\Python\Launcher\;C:\Users\rapha\AppData\Local\Microsoft\WindowsApps;C:\Users\rapha\.dotnet\tools;C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\bin;C:\msys64\ucrt64\bin;C:\MinGW\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts\git-filter-repo.exe;C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin;C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts;C:\Users\rapha\AppData\Local\Python\bin
+1
 # environment
-TEMP = C:\Users\rapha\AppData\Local\Temp
+C:\Users\RAPHAE~1.GAI\AppData\Local\Temp
 # environment
-WT_PROFILE_ID = {61c54bbd-c2c6-5271-96e7-009a87ff44bf}
-# environment
-COMSPEC = C:\WINDOWS\system32\cmd.exe
+\\.\pipe\f98bcf7c-1.115.0-main-sock
 # default
-MAKEFILES := 
+
 # automatic
-<F = $(notdir $<)
-# environment
-LC_ALL = C
-# automatic
-^F = $(notdir $^)
+$(notdir $<)
 # default
-SUFFIXES := 
+
 # environment
-SYSTEMDRIVE = C:
+C:\ProgramData
 # environment
-SESSIONNAME = Console
+Console
+# default
+target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs notintermediate shell-export archives jobserver output-sync load dospaths
 # environment
-PROCESSOR_REVISION = be00
+8c01
 # environment
-LEVEL_ZERO_V1_SDK_PATH = C:\Program Files\LevelZeroSDK\1.24.0\
-# environment
-MAKELEVEL := 0
-# environment
-LANG = C
-# environment
-PROCESSOR_LEVEL = 6
-# environment
-VSCODE_PID = 12940
-# environment
-USERDOMAIN_ROAMINGPROFILE = RAPHAGW
-# variable set hash-table stats:
-# Load=96/1024=9%, Rehash=0, Collisions=10/120=8%
-
-# Directories
-
-# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1761331444): 29 files, no impossibilities.
-# C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1773654187): 150 files, no impossibilities.
-# . (key c:/Users/rapha/OneDrive - ufpr.br/�rea de Trabalho/Alg3/Arvore B, mtime 1774556701): 7 files, no impossibilities.
-# C:\Program Files\dotnet\ (key C:/Program Files/dotnet/, mtime 1765332589): 13 files, no impossibilities.
-# C:\Program Files\Eclipse Adoptium\jdk-25.0.1.8-hotspot\bin (key C:/Program Files/Eclipse Adoptium/jdk-25.0.1.8-hotspot/bin, mtime 1761856998): 129 files, no impossibilities.
-# C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\Users\rapha\AppData\Local\Programs\Python\Launcher\ (key C:/Users/rapha/AppData/Local/Programs/Python/Launcher/, mtime 1759183797): 5 files, no impossibilities.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1774810317): 109 files, no impossibilities.
-# C:\ProgramData\Oracle\Java\javapath (key C:/ProgramData/Oracle/Java/javapath, mtime 1740574056): 5 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/rapha/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1774556691): 5 files, no impossibilities.
-# C:\Program Files\Git\bin (key C:/Program Files/Git/bin, mtime 1744317022): 5 files, no impossibilities so far.
-# C:\Users\rapha\.dotnet\tools: could not be stat'd.
-# C:\Program Files (x86)\Microsoft Group Policy\Windows Server 2022 August 2021 Update\PolicyDefinitions\ (key C:/Program Files (x86)/Microsoft Group Policy/Windows Server 2022 August 2021 Update/PolicyDefinitions/, mtime 1757171433): 238 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\Scripts: could not be stat'd.
-# C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1744317047): 13 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1774810340): 2977 files, no impossibilities.
-# C:\allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0\allegro\bin (key C:/allegro-x86_64-w64-mingw32-gcc-14.2.0-posix-seh-dynamic-5.2.10.0/allegro/bin, mtime 1762468512): 33 files, no impossibilities.
-# C:\Users\rapha\AppData\Local\Microsoft\WindowsApps (key C:/Users/rapha/AppData/Local/Microsoft/WindowsApps, mtime 1773525637): 51 files, no impossibilities.
-
-# 3769 files, no impossibilities in 18 directories.
-
-# Implicit Rules
-
-# No implicit rules.
-
-# Pattern-specific variable values
-
-# No pattern-specific variable values.
-
-# Files
-
-arvoreB.o: arvoreB.h arvoreB.c
-#  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := arvoreB.o
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := arvoreB.h arvoreB.c
-# automatic
-# | := 
-# automatic
-# < := arvoreB.h
-# automatic
-# ^ := arvoreB.h arvoreB.c
-# automatic
-# ? := arvoreB.h arvoreB.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
-#  commands to execute (from `makefile', line 13):
-	gcc -c arvoreB.c $(parametrosCompilacao)
-	
-
-all: prova1_20244362
-#  Command-line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
-
-# Not a target:
-main.c:
-#  Implicit rule search has been done.
-#  Last modified 2026-03-26 17:00:29
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-.DEFAULT:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  Last modified 2026-03-26 17:14:46
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-arvoreB.c:
-#  Implicit rule search has been done.
-#  Last modified 2026-03-28 16:38:41
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-arvoreB.h:
-#  Implicit rule search has been done.
-#  Last modified 2026-03-28 16:16:19
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `makefile', line 16):
-	rm -f *.o *.gch $(nomePrograma)
-	
-
-main.o: main.c
-#  Implicit rule search has not been done.
-#  Implicit/static pattern stem: `'
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := main.o
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := main.c
-# automatic
-# | := 
-# automatic
-# < := main.c
-# automatic
-# ^ := main.c
-# automatic
-# ? := main.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
-#  commands to execute (from `makefile', line 10):
-	gcc -c main.c $(parametrosCompilacao)
-	
-
-prova1_20244362: main.o arvoreB.o
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
-#  commands to execute (from `makefile', line 7):
-	gcc -o $(nomePrograma) main.o arvoreB.o $(parametrosCompilacao)
-	
-
-# files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/31=0%
-# VPATH Search Paths
-
-# No `vpath' search paths.
-
-# No general (`VPATH' variable) search path.
-
-# Finished Make data base on Sun Mar 29 15:55:34 2026
-
- 
+vs/workbench/api/node/extensionHostProcess
+#  

@@ -2,13 +2,12 @@
 #define ARVORE_B_H_
 
 #include <stdint.h>
-#include <stdbool.h> 
 
 struct nodo {
   int32_t nchave;
   int32_t *chaves;
   struct nodo **filhos;
-  bool folha;
+  char folha;
 };
 
 struct arvoreB {

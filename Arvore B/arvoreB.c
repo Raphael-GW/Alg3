@@ -3,27 +3,26 @@
 
 #include "arvoreB.h"
 
+struct nodo* criarnodo(int32_t t_arvore){
+    struct nodo* nodo = malloc (sizeof (struct nodo));
+    if (!nodo)
+        return NULL;
+
+    nodo->nchave = 0;
+    nodo->chaves = malloc (sizeof(int32_t) * (2*t_arvore - 1));
+    nodo->filhos = malloc(sizeof (int32_t) * 2*t_arvore);
+    nodo->folha = 1;
+
+    return nodo;
+}
 
 struct arvoreB* criarArvoreB(int32_t t_arvore){
     struct arvoreB* arvore = malloc (sizeof (struct arvoreB));
     if (!arvore)
         return NULL;
 
-    arvore->raiz = NULL;
+    arvore->raiz = criarnodo (t_arvore);
     arvore->t_arvore = t_arvore;
-
-    return arvore;
-}
-
-struct nodo* criarnodo(int32_t t_arvore){
-    struct nodo* arvore = malloc (sizeof (struct nodo));
-    if (!arvore)
-        return NULL;
-
-    arvore->nchave = 0;
-    arvore->chaves = malloc (sizeof(int32_t) * (2*t_arvore - 1));
-    arvore->filhos = malloc(sizeof (int32_t) * 2*t_arvore);
-    arvore->folha = true;
 
     return arvore;
 }
@@ -34,6 +33,8 @@ void divide_filho (struct nodo* x, int32_t idx){
     
     int32_t t_arvore = sizeof (x->filhos) / (sizeof(int32_t) * 2);
     struct nodo* z = criarnodo (t_arvore);
+    if (!z)
+        return ;
     struct nodo* y = x->filhos[idx];
     z->folha = y->folha;
     z->nchave = t_arvore - 1;
@@ -71,14 +72,14 @@ struct nodo* dividir_raiz (struct arvoreB* arvore){
 
     s->filhos[0] = arvore->raiz;
     arvore->raiz = s;
-    s->folha = false;
+    s->folha = 0;
 
     divide_filho (s, 0);
 
     return s;
 }
 
-void insererNaoCheio (struct nodo* x, int32_t k){
+void inserirNaoCheio (struct nodo* x, int32_t k){
     if (!x)
         return ;
 
@@ -93,7 +94,7 @@ void insererNaoCheio (struct nodo* x, int32_t k){
         return ;
     }
     
-    while (idx >= 0 && k < x->chaves[idx])
+    while (idx >= 1 && k < x->chaves[idx])
         idx -= 1;
     
     idx += 1;
@@ -106,7 +107,7 @@ void insererNaoCheio (struct nodo* x, int32_t k){
         
     }
 
-    insererNaoCheio (x->filhos[idx], k);
+    inserirNaoCheio (x->filhos[idx], k);
 }
 
 void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
@@ -114,12 +115,14 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
         return ;
 
     struct nodo* r = arvore->raiz;
-    if (r->nchave == 2 * arvore->t_arvore - 1){
+    int32_t t = arvore->t_arvore;
+    if (r->nchave == 2 * t - 1){
         struct nodo* s = dividir_raiz (arvore);
         if (!s)
             return ;
 
-        insererNaoCheio (s,chave);
+        inserirNaoCheio (s,chave);
+        printf ("inserir não cheio raiz OK\n");
         return ;
     }
     inserirNaoCheio (r, chave);
@@ -127,7 +130,7 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
 
 struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEncontrado){
     if (!arvore || !idxEncontrado){
-        idxEncontrado = -1;
+        *idxEncontrado = -1;
         return NULL;
     }
 
@@ -141,7 +144,7 @@ struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEn
             idx = 0;
         }
         else{
-            idxEncontrado = -1;
+            *idxEncontrado = -1;
             return NULL;
         }
     }
@@ -246,7 +249,7 @@ void imprimirEmOrdem(struct arvoreB* arvore){
 
 struct nodo_fila {
     struct nodo* n;
-    struct nodo* prox;
+    struct nodo_fila* prox;
 };
 
 struct fila {
