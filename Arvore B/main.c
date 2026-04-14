@@ -13,7 +13,8 @@ int main (){
     if (!arvore)
         exit(1);
 
-    printf ("SELECIONE UMA OPÇÃO: 1 - Inserir  2 - Buscar  3 - Imprimir  4 - Imprime Ordem  5 - Sair\n");
+    
+    printf ("SELECIONE UMA OPCAO: 1 - Inserir  2 - Buscar  3 - Imprimir  4 - Imprime Ordem  5 - Sair\n");
 
     int op = 0;
     scanf ("%d", &op);

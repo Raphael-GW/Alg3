@@ -3,6 +3,8 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # Variables
 
 # environment
+Internet Explorer
+# environment
 C:
 # environment
 C
@@ -17,6 +19,8 @@ C:\Users\raphael.gaias\AppData\Local\Programs\Microsoft VS Code
 # environment
 C:\WINDOWS
 # environment
+1
+# environment
 6
 # environment
 C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
@@ -29,18 +33,23 @@ TACLA.CORP
 # environment
 true
 # automatic
-$(patsubst %/,%,$(patsubst %\,% 
-,$(dir $@)))
+$(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-\\.\pipe\crashpad_6968_DHQGFHPAUHLUXMAV
+1
+# environment
+\\.\pipe\crashpad_13068_NFAYTYUKNIJJTZQH
 # environment
 file
+# environment
+Default
 # environment
 true
 # default
 
 # automatic
 $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# environment
+1
 # automatic
 $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
 # automatic
@@ -84,7 +93,7 @@ makefile
 # automatic
 $(notdir $@)
 # environment
-6968
+13068
 # automatic
 $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -142,6 +151,8 @@ C:\Program Files
 # automatic
 $(notdir $+)
 # environment
+1
+# environment
 TACLA
 # 'override' directive
 
@@ -168,8 +179,6 @@ true
 # environment
 AMD64
 # environment
-1
-# environment
 C:\Program Files (x86)\Common Files
 # environment
 1
@@ -188,9 +197,4 @@ C:\ProgramData
 # environment
 Console
 # default
-target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs notintermediate shell-export archives jobserver output-sync load dospaths
-# environment
-8c01
-# environment
-vs/workbench/api/node/extensionHostProcess
-#  
+target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs notintermediate shell-export archives jobserver  
