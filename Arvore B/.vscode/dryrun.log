@@ -1,7 +1,0 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-make: Entering directory 'c:/Users/raphael.gaias/Documents/Alg3/Arvore B'
-gcc -c main.c -std=c23 -Wall
-gcc -c arvoreB.c -std=c23 -Wall
-gcc -o prova1_20244362 main.o arvoreB.o -std=c23 -Wall
-make: Leaving directory 'c:/Users/raphael.gaias/Documents/Alg3/Arvore B'
- 

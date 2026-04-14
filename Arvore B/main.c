@@ -30,7 +30,11 @@ int main (){
             
             case 2:
                 scanf ("%d", &chave);
-                buscarArvoreB (arvore, chave , &idx);
+                struct nodo* n = buscarArvoreB (arvore, chave , &idx);
+                if (n)
+                    printf ("Chave encontrada no índice %d\n", idx);
+                else
+                    printf ("Chave não encontrada!!\n");
                 break;
 
             case 3:
@@ -41,10 +45,6 @@ int main (){
                 imprimirEmOrdem (arvore);
                 break;
 
-            case 5:
-                deletarArvore (arvore);
-                break;
-
             default:
                 printf ("Opcao invalida!!\n");
                 break;
@@ -53,5 +53,6 @@ int main (){
         scanf ("%d", &op);
     }
 
+    deletarArvore (arvore);
     return 0;
 }

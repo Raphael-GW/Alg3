@@ -1,4 +1,4 @@
-parametrosCompilacao=-std=c23 -Wall
+parametrosCompilacao=-std=c2x -Wall
 nomePrograma=prova1_20244362
 
 all: $(nomePrograma)

@@ -11,6 +11,8 @@ struct nodo* criarnodo(int32_t t_arvore){
     nodo->nchave = 0;
     nodo->chaves = malloc (sizeof(int32_t) * (2*t_arvore - 1));
     nodo->filhos = malloc (sizeof (struct nodo) * 2*t_arvore);
+    for (int32_t i = 0; i < 2*t_arvore; i++)
+        nodo->filhos[i] = NULL;
     nodo->folha = 1;
 
     return nodo;
@@ -21,9 +23,7 @@ struct arvoreB* criarArvoreB(int32_t t_arvore){
     if (!arvore)
         return NULL;
 
-    arvore->raiz = criarnodo (t_arvore);
-    if (!arvore->raiz)
-        return NULL;
+    arvore->raiz = NULL;
 
     arvore->t_arvore = t_arvore;
 
@@ -49,20 +49,19 @@ void divide_filho (struct nodo* x, int32_t idx, int32_t t){
 
     if (!y->folha){
         for (int32_t i = 0; i < t; i++){
-            z->filhos[i] = y->filhos[i];
+            z->filhos[i] = y->filhos[i+t];
         }
     }
 
     y->nchave = t - 1;
-    for (int32_t i = x->nchave + 1; i < idx + 1; i--)
+    for (int32_t i = x->nchave + 1; i >= idx + 1; i--)
         x->filhos[i+1] = x->filhos[i];
     
-
     x->filhos[idx+1] = z;
-    for (int32_t i = x->nchave; i < idx; i--)
+    for (int32_t i = x->nchave; i >= idx; i--)
         x->chaves[i+1] = x->chaves[i];
     
-    x->chaves[idx] = y->chaves[t];
+    x->chaves[idx] = y->chaves[t - 1];
     x->nchave += 1;
 }
 
@@ -87,7 +86,7 @@ void inserirNaoCheio (struct nodo* x, int32_t k, int32_t t){
     if (!x)
         return ;
 
-    int32_t idx = x->nchave;
+    int32_t idx = x->nchave - 1;
     if (x->folha){
         while (idx >= 0 && k < x->chaves[idx]){
             x->chaves[idx+1] = x->chaves[idx];
@@ -95,28 +94,30 @@ void inserirNaoCheio (struct nodo* x, int32_t k, int32_t t){
         }
         x->chaves[idx+1] = k;
         x->nchave += 1;
-        return ;
     }
-    
-    while (idx >= 1 && k < x->chaves[idx])
-        idx -= 1;
-    
-    idx += 1;
-
-    int32_t t_arvore = sizeof (x->filhos) / (sizeof(int32_t) * 2);
-    if (x->filhos[idx]->nchave == 2 * t_arvore - 1){
-        divide_filho (x, idx, t);
-        if (k > x->chaves[idx])
-            idx += 1;
+    else{
+        while (idx >= 0 && k < x->chaves[idx])
+            idx -= 1;
         
-    }
+        idx += 1;
 
-    inserirNaoCheio (x->filhos[idx], k, t);
+        if (x->filhos[idx]->nchave == (2*t - 1)){
+            divide_filho (x, idx, t);
+            if (k > x->chaves[idx])
+                idx += 1;
+            
+        }
+
+        inserirNaoCheio (x->filhos[idx], k, t);
+    }
 }
 
 void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
     if (!arvore)
         return ;
+
+    if (!arvore->raiz)
+        arvore->raiz = criarnodo (arvore->t_arvore);
 
     struct nodo* r = arvore->raiz;
     int32_t t = arvore->t_arvore;
@@ -126,33 +127,40 @@ void inserirArvoreB(struct arvoreB* arvore, int32_t chave){
             return ;
 
         inserirNaoCheio (s, chave, arvore->t_arvore);
-        return ;
     }
-    inserirNaoCheio (r, chave, arvore->t_arvore);
+    else
+        inserirNaoCheio (r, chave, arvore->t_arvore);
 }
 
 struct nodo* buscarArvoreB(struct arvoreB* arvore, int32_t chave, int32_t* idxEncontrado){
-    if (!arvore || !idxEncontrado){
+    if (!idxEncontrado)
+        return NULL;
+
+    if (!arvore || !arvore->raiz){
         *idxEncontrado = -1;
         return NULL;
     }
 
-    int32_t idx = 0;
     struct nodo* aux = arvore->raiz;
-    while (aux->chaves[idx] != chave && (!aux->folha || idx <= aux->nchave)){
-        if (aux->chaves[idx] < chave)
+    while (aux){
+        int32_t idx = 0;
+
+        while (idx < aux->nchave && chave > aux->chaves[idx])
             idx += 1;
-        else if (!aux->folha){
-            aux = aux->filhos[idx];
-            idx = 0;
+        
+        if (idx < aux->nchave && chave == aux->chaves[idx]){
+            *idxEncontrado = idx;
+            return aux;
         }
-        else{
-            *idxEncontrado = -1;
-            return NULL;
-        }
+
+        if (aux->folha)
+            break;
+
+        aux = aux->filhos[idx];
     }
-    *idxEncontrado = idx;
-    return aux;
+
+    *idxEncontrado = -1;
+    return NULL;
 }
 
 // ---------- Estrutura auxiliar para impressão em ordem -------------
@@ -167,12 +175,12 @@ struct pilha {
 };
 
 //cria pilha vazia
-struct pilha* cria_pilha (){
+struct pilha* cria_pilha (int32_t t){
     struct pilha* p = malloc (sizeof (struct pilha));
     if (!p)
         return NULL;
 
-    p->items = NULL;
+    p->items = malloc (sizeof (struct item*) *2*t);
     p->topo = 0;
     return p;
 }
@@ -193,6 +201,9 @@ void empilha (struct pilha* p, struct nodo* n, int32_t idx){
         return ;
 
     struct item* i = cria_item (n, idx);
+    if (!i)
+        return ;
+
     p->items[p->topo] = i;
     p->topo += 1;
 }
@@ -213,7 +224,7 @@ void imprimirEmOrdem(struct arvoreB* arvore){
     if (!arvore)
         return ;
 
-    struct pilha* p = cria_pilha ();
+    struct pilha* p = cria_pilha (arvore->t_arvore);
     if (!p)
         return ;
 
@@ -237,13 +248,15 @@ void imprimirEmOrdem(struct arvoreB* arvore){
         
 
         if (idx <= n->nchave){
-            empilha (p, n, idx + 1);
+            if (!n->folha)
+                empilha (p, n, idx + 1);
             empilha (p, n->filhos[idx], 0);
         }
         free (i);
     }
     printf ("\n");
     
+    free (p->items);
     free (p);
 }
 
@@ -308,8 +321,8 @@ void imprimirArvoreB(struct arvoreB* arvore){
     f->ult = NULL;
     enfileirar (f, arvore->raiz);
 
+    int nivel = 0;
     while (f->prim){
-        int nivel = 0;
         int n_no_nivel = 0; // quantidade de nodos no nivel
         struct nodo_fila* temp = f->prim;
         while (temp){
@@ -350,11 +363,31 @@ void imprimirArvoreB(struct arvoreB* arvore){
         nivel += 1;
         printf("\n");
     }
+
+    while (f->prim)
+        desinfileirar (f);
+    free (f);
+}
+
+void deletarNodo (struct nodo* n){
+    if (!n)
+        return ;
+
+    if (!n->folha){
+        for (int32_t i = 0; i <= n->nchave; i++)
+            deletarNodo (n->filhos[i]);
+    }
+
+    free (n->chaves);
+    free (n->filhos);
+    free(n);
 }
 
 void deletarArvore (struct arvoreB* arvore){
-    if (!arvore || !arvore->raiz)
+    if (!arvore)
         return ;
 
-    
+    if (arvore->raiz)
+        deletarNodo (arvore->raiz);
+    free (arvore);
 }
