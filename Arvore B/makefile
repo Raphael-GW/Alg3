@@ -1,5 +1,9 @@
-parametrosCompilacao=-std=c2x -Wall
-nomePrograma=prova1_20244362
+# Adicionado -g para incluir símbolos de depuração, essencial para o Valgrind
+parametrosCompilacao=-std=c2x -Wall -g
+nomePrograma=prova2_20244362
+
+# Flags recomendadas para uma análise completa de memória
+FLAGS_VALGRIND=--leak-check=full --show-leak-kinds=all --track-origins=yes
 
 all: $(nomePrograma)
 
@@ -11,6 +15,10 @@ main.o: main.c
 
 arvoreB.o: arvoreB.h arvoreB.c
 	gcc -c arvoreB.c $(parametrosCompilacao)
+
+# Nova regra: compila (se necessário) e executa com valgrind
+valgrind: $(nomePrograma)
+	valgrind $(FLAGS_VALGRIND) ./$(nomePrograma)
 
 clean:
 	rm -f *.o *.gch $(nomePrograma)
